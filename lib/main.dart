@@ -1,6 +1,8 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project/MainButton.dart';
 import 'package:project/Size_of_screen.dart';
@@ -26,9 +28,9 @@ double h_s = SizeConfig.SV;
 ThemeData _buildTheme(brightness) {
   var baseTheme = ThemeData(
       brightness: brightness,
-      primaryIconTheme: IconThemeData(color: Colors.amberAccent),
-      primarySwatch: Colors.amber,
-      primaryColor: Colors.amberAccent);
+      primaryIconTheme: IconThemeData(color: Colors.black),
+      primarySwatch: Colors.pink,
+      primaryColor: Colors.black);
 
   return baseTheme.copyWith(
     textTheme: GoogleFonts.notoSansGeorgianTextTheme(baseTheme.textTheme),
@@ -84,6 +86,83 @@ class AppPage extends StatelessWidget {
                     //         MedicalProvider(preferences: snapshot.data)),
                   ],
                   child: MaterialApp(
+                    supportedLocales: const [
+                      Locale("af"),
+                      Locale("am"),
+                      Locale("ar"),
+                      Locale("az"),
+                      Locale("be"),
+                      Locale("bg"),
+                      Locale("bn"),
+                      Locale("bs"),
+                      Locale("ca"),
+                      Locale("cs"),
+                      Locale("da"),
+                      Locale("de"),
+                      Locale("el"),
+                      Locale("en"),
+                      Locale("es"),
+                      Locale("et"),
+                      Locale("fa"),
+                      Locale("fi"),
+                      Locale("fr"),
+                      Locale("gl"),
+                      Locale("ha"),
+                      Locale("he"),
+                      Locale("hi"),
+                      Locale("hr"),
+                      Locale("hu"),
+                      Locale("hy"),
+                      Locale("id"),
+                      Locale("is"),
+                      Locale("it"),
+                      Locale("ja"),
+                      Locale("ka"),
+                      Locale("kk"),
+                      Locale("km"),
+                      Locale("ko"),
+                      Locale("ku"),
+                      Locale("ky"),
+                      Locale("lt"),
+                      Locale("lv"),
+                      Locale("mk"),
+                      Locale("ml"),
+                      Locale("mn"),
+                      Locale("ms"),
+                      Locale("nb"),
+                      Locale("nl"),
+                      Locale("nn"),
+                      Locale("no"),
+                      Locale("pl"),
+                      Locale("ps"),
+                      Locale("pt"),
+                      Locale("ro"),
+                      Locale("ru"),
+                      Locale("sd"),
+                      Locale("sk"),
+                      Locale("sl"),
+                      Locale("so"),
+                      Locale("sq"),
+                      Locale("sr"),
+                      Locale("sv"),
+                      Locale("ta"),
+                      Locale("tg"),
+                      Locale("th"),
+                      Locale("tk"),
+                      Locale("tr"),
+                      Locale("tt"),
+                      Locale("uk"),
+                      Locale("ug"),
+                      Locale("ur"),
+                      Locale("uz"),
+                      Locale("vi"),
+                      Locale("zh")
+                    ],
+                    localizationsDelegates: const [
+                      CountryLocalizations.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                    ],
                     debugShowCheckedModeBanner: false,
                     theme: theme,
                     initialRoute: "splash",

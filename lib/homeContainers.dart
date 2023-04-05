@@ -375,19 +375,23 @@ class DoctorsAvailableOnline extends StatelessWidget {
               SizedBox(
                   width: w_s * 12.89,
                   height: h_s * 12.5,
-                  child: Image.network("$picture",
-                      fit: BoxFit.fill,
-                      width: w_s * 12.89,
-                      height: h_s * 12.5)),
-              FadeInImage.assetNetwork(
-                placeholder: './assets/images/docmain.png',
-                image: picture,
-                imageErrorBuilder: (context, error, stackTrace) {
-                  return Image.asset('./assets/images/docmain.png',
-                      fit: BoxFit.fitWidth);
-                },
-                fit: BoxFit.fitWidth,
-              )
+                  child:
+                      //Image.network("$picture",
+                      //     fit: BoxFit.fill,
+                      //     width: w_s * 12.89,
+                      //     height: h_s * 12.5)
+                      FadeInImage.assetNetwork(
+                    fit: BoxFit.fill,
+                    width: w_s * 12.89,
+                    height: h_s * 12.5,
+                    placeholder: './assets/images/docmain.png',
+                    image: picture,
+                    imageErrorBuilder: (context, error, stackTrace) {
+                      return Image.asset('./assets/images/docmain.png',
+                          fit: BoxFit.fill);
+                    },
+                    // fit: BoxFit.fitWidth,
+                  )),
             ],
           )),
     );
