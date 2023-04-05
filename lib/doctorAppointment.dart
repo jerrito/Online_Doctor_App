@@ -35,7 +35,7 @@ class _DoctorAppointmentState extends State<DoctorAppointment> {
   DayPartController dayPartController = DayPartController();
   DateTime date = DateTime.now().add(const Duration(hours: 24));
   late var formattedDate;
-  String dateget = "";
+  String dateGet = "";
   bool dateConfirm = false;
   bool timeSlot = false;
   var selectTime = DateTime.now();
@@ -115,7 +115,7 @@ class _DoctorAppointmentState extends State<DoctorAppointment> {
                                         formattedDate = DateFormat('d-MMM-yy')
                                             .format(selectedDate);
                                         timeSlot = true;
-                                        dateget = DateFormat('d-MMM-yy')
+                                        dateGet = DateFormat('d-MMM-yy')
                                             .format(selectedDate);
                                       });
                                     }
@@ -124,7 +124,7 @@ class _DoctorAppointmentState extends State<DoctorAppointment> {
                                 color: Colors.pink,
                                 backgroundColor: Colors.pink),
                             SizedBox(height: h_s * 6.25),
-                            Text("$dateget"),
+                            Text("$dateGet"),
                             SizedBox(height: h_s * 2.5),
                             Text("Slots"),
                             Visibility(
@@ -157,7 +157,7 @@ class _DoctorAppointmentState extends State<DoctorAppointment> {
                                   loading = true;
                                 });
                                 var appointment = Appointment(
-                                    date: dateget,
+                                    date: dateGet,
                                     time:
                                         "${selectTime.hour.toString()}:${selectTime.minute.toString()}0",
                                     doctor: "${widget.name}",

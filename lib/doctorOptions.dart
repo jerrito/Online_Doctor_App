@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:project/MainButton.dart';
 import 'package:project/Size_of_screen.dart';
@@ -36,17 +38,19 @@ class _DoctorOptionsState extends State<DoctorOptions> {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               IconButton(
-                  icon: Icon(Icons.arrow_back_ios_new_outlined),
+                  icon:  Platform.isIOS
+                      ? const Icon(Icons.arrow_back_ios_new_outlined)
+                      : const Icon(Icons.arrow_back_outlined),
                   onPressed: () {
                     Navigator.pop(context);
                   }),
               Text("Dr. ${widget.name}",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-              Text("")
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+              const Text("")
             ]),
             Flexible(
               child: ListView(
@@ -54,9 +58,9 @@ class _DoctorOptionsState extends State<DoctorOptions> {
                   Container(
                     width: double.infinity,
                     height: h_s * 37.5,
-                    color: Color.fromRGBO(210, 230, 250, 0.2),
+                    color: const Color.fromRGBO(210, 230, 250, 0.2),
                     child: Center(
-                        child: Image.network("${widget.pic}",
+                        child: Image.network(widget.pic,
                             width: double.infinity, height: 300)),
                   ),
                   SizedBox(height: h_s * 2.5),
@@ -68,7 +72,7 @@ class _DoctorOptionsState extends State<DoctorOptions> {
                           height: h_s * 6.25,
                           child: IconLabelButton(
                               label: "Voice call",
-                              icon: Icon(Icons.phone, color: Colors.white),
+                              icon:const Icon(Icons.phone, color: Colors.white),
                               onPressed: () {},
                               backgroundColor: Colors.lightGreen,
                               color: Colors.lightGreen)),
@@ -77,7 +81,7 @@ class _DoctorOptionsState extends State<DoctorOptions> {
                           height: h_s * 6.25,
                           child: IconLabelButton(
                               label: "Video call",
-                              icon: Icon(Icons.video_call_outlined,
+                              icon:const Icon(Icons.video_call_outlined,
                                   color: Colors.white),
                               onPressed: () {},
                               backgroundColor: Colors.purple,
@@ -87,7 +91,7 @@ class _DoctorOptionsState extends State<DoctorOptions> {
                           height: h_s * 6.25,
                           child: IconLabelButton(
                               label: "Message",
-                              icon: Icon(Icons.message, color: Colors.white),
+                              icon:const Icon(Icons.message, color: Colors.white),
                               onPressed: () {},
                               backgroundColor: Colors.orange,
                               color: Colors.orange)),
@@ -95,68 +99,68 @@ class _DoctorOptionsState extends State<DoctorOptions> {
                       //SizedBox(width: 100, child: MainButton(child: TextButton.icon(onPressed: (){}, icon: Icon(Icons.phone), label: Text("")), onPressed: (){}, color: Colors.orange)),
                     ],
                   ),
-                  SizedBox(height: 20),
+                 const SizedBox(height: 20),
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Text(widget.speciality,
-                          style: TextStyle(
+                          style:const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16))),
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Text(widget.location,
-                          style: TextStyle(fontSize: 16))),
-                  SizedBox(height: 10),
+                          style:const TextStyle(fontSize: 16))),
+                  const SizedBox(height: 10),
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Text("About ${widget.name}",
-                          style: TextStyle(
+                          style:const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16))),
-                  Align(
+                 const Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                           "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, ")),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Column(children: [
-                          Text("Patients"),
-                          Text("${widget.patients}",
-                              style: TextStyle(
+                         const Text("Patients"),
+                          Text(widget.patients,
+                              style:const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16))
                         ]),
                         Column(children: [
-                          Text("Experience"),
-                          Text("${widget.experience}",
-                              style: TextStyle(
+                        const  Text("Experience"),
+                          Text(widget.experience,
+                              style:const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16))
                         ]),
-                        Column(children: [
-                          Text("Reviews"),
-                          Text("2.54K",
-                              style: TextStyle(
+                        Column(children: const [
+                         Text("Reviews"),
+                         Text("2.54K",
+                              style:TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16))
                         ])
                       ]),
-                  SizedBox(height: 20),
+                 const SizedBox(height: 20),
                   SecondaryButton(
-                    child: Text("Book an Appointment"),
                     onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => DoctorAppointment(
-                                  name: '${widget.name}',
-                                  speciality: '${widget.speciality}',
-                                  patients: '${widget.patients}',
-                                  location: '${widget.location}',
-                                  number: "${widget.number}")));
+                                  name: widget.name,
+                                  speciality: widget.speciality,
+                                  patients: widget.patients,
+                                  location: widget.location,
+                                  number: widget.number)));
                     },
                     color: Colors.pink,
                     backgroundColor: Colors.pink,
                     foregroundColor: Colors.white,
+                    child:const Text("Book an Appointment"),
                   ),
-                  SizedBox(height:10)
+                  const SizedBox(height: 10)
                 ],
               ),
             ),

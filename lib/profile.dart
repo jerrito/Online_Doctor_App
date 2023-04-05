@@ -119,8 +119,8 @@ class _ProfileState extends State<Profile> {
       child: SafeArea(
         child: Scaffold(
             body: Container(
-              padding: EdgeInsets.all(10),
-              color: Color.fromRGBO(210, 230, 250, 0.2),
+              padding:const EdgeInsets.all(10),
+              color:const Color.fromRGBO(210, 230, 250, 0.2),
               child:
                   Column(mainAxisAlignment: MainAxisAlignment.start, children: [
                 // Row(
@@ -130,7 +130,7 @@ class _ProfileState extends State<Profile> {
                 //     onPressed:(){
                 //       Navigator.pop(context);
                 //     }),
-                Center(
+                    const Center(
                     child: Text("Profile",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18))),
@@ -147,9 +147,21 @@ class _ProfileState extends State<Profile> {
                         children: [
                           Container(
                             width: double.infinity, height: 180,
-                            color: Color.fromRGBO(210, 230, 250, 0.2),
+                            color:const Color.fromRGBO(210, 230, 250, 0.2),
                             // decoration: ,
                             child: Visibility(
+                              visible:
+                                  userProvider?.appUser?.image?.isNotEmpty ==
+                                      true,
+                              replacement: CircleAvatar(
+                                backgroundColor: Colors.white,
+                                //backgroundImage:SvgPicture.asset("./assets/svgs/user.svg").image,
+                                //radius:50,
+                                child: SvgPicture.asset(
+                                    "./assets/svgs/user.svg",
+                                    width: w_s * 22.22,
+                                    height: h_s * 10),
+                              ),
                               child: CircleAvatar(
                                   radius: h_s * 11.25,
                                   backgroundColor: Colors.pink,
@@ -164,18 +176,6 @@ class _ProfileState extends State<Profile> {
                                     //img:'https://firebasestorage.googleapis.com/v0/b/wasime.appspot.com/o/data%2Fuser%2F0%2Fcom.example.mobile_money_project%2Fcache%2F14ae4d1e-b1b5-424d-98e0-07f05cd319602261144635358132582.jpg?alt=media&token=b2c3cdfb-941b-48fe-8d5f-ea00532d0a15',
                                     fontsize: 20,
                                   )),
-                              visible:
-                                  userProvider?.appUser?.image?.isNotEmpty ==
-                                      true,
-                              replacement: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                //backgroundImage:SvgPicture.asset("./assets/svgs/user.svg").image,
-                                //radius:50,
-                                child: SvgPicture.asset(
-                                    "./assets/svgs/user.svg",
-                                    width: w_s * 22.22,
-                                    height: h_s * 10),
-                              ),
                             ),
                           ),
                           Positioned(
@@ -184,7 +184,7 @@ class _ProfileState extends State<Profile> {
                             child: CircleAvatar(
                               backgroundColor: Colors.pink,
                               child: IconButton(
-                                  icon: Icon(Icons.camera_alt,
+                                  icon: const Icon(Icons.camera_alt,
                                       color: Colors.white),
                                   onPressed: () async {
                                     await changeProfile(
@@ -194,42 +194,42 @@ class _ProfileState extends State<Profile> {
                           )
                         ],
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       ContainerProfileInfo(
                         title: '${userProvider?.appUser?.fullname}',
                         onPressed: () async {
                           await showName(user: userProvider?.appUser);
                         },
                       ),
-                      SizedBox(height: 20),
+                      const   SizedBox(height: 20),
                       ContainerProfileInfo(
                         title: '${userProvider?.appUser?.email}',
                         onPressed: () {
                           showEmail(user: userProvider?.appUser);
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       ContainerProfileInfo(
                         title: '${userProvider?.appUser?.number}',
                         onPressed: () {
                           showNumber(user: userProvider?.appUser);
                         },
                       ),
-                      SizedBox(height: 20),
+                      const   SizedBox(height: 20),
                       ContainerProfileInfo(
                         title: 'Medical Information',
                         onPressed: () {
                           authenticate();
                         },
                       ),
-                      SizedBox(height: 20),
+                      const   SizedBox(height: 20),
                       ContainerProfileInfo(
                         title: 'Change Pin',
                         onPressed: () {
                           pinEdit(user: userProvider?.appUser);
                         },
                       ),
-                      SizedBox(height: 20),
+                      const   SizedBox(height: 20),
                       ContainerProfileInfo(
                         title: 'Logout',
                         onPressed: () {
@@ -250,7 +250,7 @@ class _ProfileState extends State<Profile> {
   updateUser({required User user}) async {
     var result = await userProvider?.updateUser(user: user);
     if (result?.status == QueryStatus.Successful) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         duration: Duration(seconds: 5),
         content: Text("Profile updated successfully",
             style: TextStyle(color: Colors.white)),
@@ -264,7 +264,7 @@ class _ProfileState extends State<Profile> {
         saveLoading = false;
       });
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         duration: Duration(seconds: 5),
         content:
             Text("Error saving details", style: TextStyle(color: Colors.white)),
@@ -274,7 +274,7 @@ class _ProfileState extends State<Profile> {
   }
 
   Future<void> showName({required User? user}) async {
-    String? fullname = user?.fullname;
+    String? fullName = user?.fullname;
     return await showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -286,7 +286,7 @@ class _ProfileState extends State<Profile> {
                     keys: nameKey,
                     validator: FullNameValidator,
                     onChanged: (value) {
-                      fullname = value;
+                      fullName = value;
                     },
                     initialValue: '${userProvider?.appUser?.fullname}',
                     onPressed: saveLoading
@@ -297,7 +297,7 @@ class _ProfileState extends State<Profile> {
                                 saveLoading = true;
                               });
 
-                              user?.fullname = fullname;
+                              user?.fullname = fullName;
                               await updateUser(user: user!);
                               setState(() {
                                 saveLoading = false;
@@ -392,7 +392,7 @@ class _ProfileState extends State<Profile> {
         builder: (BuildContext context) {
           return StatefulBuilder(builder: (context, setState) {
             return saveLoading
-                ? DialogLoading()
+                ?const  DialogLoading()
                 : DialogProfile(
                     keys: numberKey,
                     profileType: "number",
@@ -479,7 +479,7 @@ class _ProfileState extends State<Profile> {
         builder: (BuildContext context) {
           return StatefulBuilder(builder: (context, setState) {
             return saveLoading
-                ? DialogLoading()
+                ? const DialogLoading()
                 : DialogProfile(
                     keys: emailKey,
                     validator: emailValidator,
@@ -523,19 +523,19 @@ class _ProfileState extends State<Profile> {
             return Container(
                 width: double.infinity,
                 height: 600,
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
                 )),
                 child: Column(children: [
-                  Text("Choose from camera or gallery",
+                  const Text("Choose from camera or gallery",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                  SizedBox(height: 50),
+                  const  SizedBox(height: 50),
                   SecondaryButton(
-                      child: Text("Camera"),
+                      child:const Text("Camera"),
                       onPressed: () async {
                         await getCameraImage();
                       },
@@ -543,7 +543,7 @@ class _ProfileState extends State<Profile> {
                       backgroundColor: Colors.pink),
                   SizedBox(height: 20),
                   SecondaryButton(
-                      child: Text("Gallery"),
+                      child: const Text("Gallery"),
                       onPressed: () async {
                         await getFileImage();
                       },
@@ -630,10 +630,10 @@ class _ProfileState extends State<Profile> {
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
                 )),
-                margin: EdgeInsets.all(10),
+                margin: const EdgeInsets.all(10),
                 child: Visibility(
                   visible: !saveLoading,
-                  replacement: Center(
+                  replacement:const Center(
                     child: SpinKitFadingCube(
                       color: Colors.pink,
                       size: 50.0,
@@ -644,14 +644,14 @@ class _ProfileState extends State<Profile> {
                     child: Column(children: [
                       Expanded(
                         child: ListView(children: [
-                          SizedBox(height: 10),
-                          Center(
+                          const SizedBox(height: 10),
+                          const Center(
                               child: Text("Change Pin",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18))),
-                          SizedBox(height: 40),
-                          Text("Enter old pin",
+                          const SizedBox(height: 40),
+                          const   Text("Enter old pin",
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           MainInput(
                             obscureText: obscure,
@@ -675,8 +675,8 @@ class _ProfileState extends State<Profile> {
                                         "./assets/svgs/eye-off.svg",
                                         color: Colors.pink)),
                           ),
-                          SizedBox(height: 20),
-                          Text("Enter new pin",
+                          const  SizedBox(height: 20),
+                          const   Text("Enter new pin",
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           MainInput(
                             obscureText: obscure1,
@@ -700,8 +700,8 @@ class _ProfileState extends State<Profile> {
                                         "./assets/svgs/eye-off.svg",
                                         color: Colors.pink)),
                           ),
-                          SizedBox(height: 20),
-                          Text("Confirm new pin",
+                          const  SizedBox(height: 20),
+                          const   Text("Confirm new pin",
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           MainInput(
                             obscureText: obscure2,
@@ -728,7 +728,7 @@ class _ProfileState extends State<Profile> {
                         ]),
                       ),
                       SecondaryButton(
-                          child: Text("Confirm"),
+                          child:const  Text("Confirm"),
                           onPressed: saveLoading
                               ? null
                               : () async {
@@ -736,11 +736,11 @@ class _ProfileState extends State<Profile> {
                                     setState(() {
                                       saveLoading = true;
                                       correctPin = pinOld.text;
-                                      print(correctPin);
+                                     // print(correctPin);
                                     });
 
                                     var userData = user;
-                                    print(correctPin);
+                                   // print(correctPin);
                                     if (correctPin == userData?.password) {
                                       userData?.password = pinNew.text;
                                       updateUser(user: userData!);
@@ -752,7 +752,7 @@ class _ProfileState extends State<Profile> {
                                       });
                                       Navigator.pop(context);
                                     } else {
-                                      print("Wrong pin");
+                                     // print("Wrong pin");
                                       setState(() {
                                         saveLoading = false;
                                         pinConfirm.clear();
@@ -760,7 +760,7 @@ class _ProfileState extends State<Profile> {
                                         pinOld.clear();
                                       });
                                       ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
+                                          .showSnackBar(const SnackBar(
                                         duration: Duration(seconds: 5),
                                         content: Text(
                                             "Entered old pin is wrong",
@@ -776,7 +776,7 @@ class _ProfileState extends State<Profile> {
                           color: Colors.pink,
                           backgroundColor: Colors.pink,
                           foregroundColor: Colors.white),
-                      SizedBox(height: 10)
+                      const  SizedBox(height: 10)
                     ]),
                   ),
                 ));
@@ -802,7 +802,7 @@ class _ProfileState extends State<Profile> {
           ),
         ));
       } else {
-        print('No image selected.');
+        //print('No image selected.');
       }
     });
   }
@@ -863,10 +863,10 @@ class _ProfileState extends State<Profile> {
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
                 )),
-                margin: EdgeInsets.all(10),
+                margin:const  EdgeInsets.all(10),
                 child: Visibility(
                   visible: !saveLoading,
-                  replacement: Center(
+                  replacement:const  Center(
                     child: SpinKitFadingCube(
                       color: Colors.pink,
                       size: 50.0,
@@ -877,14 +877,14 @@ class _ProfileState extends State<Profile> {
                     child: Column(children: [
                       Expanded(
                         child: ListView(children: [
-                          SizedBox(height: 5),
-                          Center(
+                          const  SizedBox(height: 5),
+                          const  Center(
                               child: Text("Medical Information",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18))),
-                          SizedBox(height: 10),
-                          Text("Medications",
+                          const   SizedBox(height: 10),
+                          const  Text("Medications",
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           MainInput(
                             initialValue: medications == "" ? "" : medications,
@@ -895,8 +895,8 @@ class _ProfileState extends State<Profile> {
                               medications = value;
                             },
                           ),
-                          SizedBox(height: 10),
-                          Text("Medical Notes",
+                          const   SizedBox(height: 10),
+                          const  Text("Medical Notes",
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           MainInput(
                             initialValue: medicalNote == "" ? "" : medicalNote,
@@ -907,15 +907,15 @@ class _ProfileState extends State<Profile> {
                               medicalNote = value;
                             },
                           ),
-                          SizedBox(height: 10),
-                          Text("Organ donor?",
+                          const   SizedBox(height: 10),
+                          const   Text("Organ donor?",
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           Row(
                             children: [
                               SizedBox(
                                 width: 150,
                                 child: RadioListTile(
-                                  title: Text("Yes"),
+                                  title:const  Text("Yes"),
                                   groupValue: donor,
                                   value: "Yes",
                                   onChanged: (value) {
@@ -926,11 +926,11 @@ class _ProfileState extends State<Profile> {
                                   },
                                 ),
                               ),
-                              SizedBox(width: 20),
+                              const   SizedBox(width: 20),
                               SizedBox(
                                 width: 150,
                                 child: RadioListTile(
-                                  title: Text("No"),
+                                  title: const Text("No"),
                                   groupValue: donor,
                                   value: "No",
                                   onChanged: (value) {
@@ -946,7 +946,7 @@ class _ProfileState extends State<Profile> {
                           SizedBox(
                             width: 150,
                             child: RadioListTile(
-                              title: Text("Unknown"),
+                              title:const  Text("Unknown"),
                               groupValue: donor,
                               value: "Unknown",
                               onChanged: (value) {
@@ -957,20 +957,20 @@ class _ProfileState extends State<Profile> {
                               },
                             ),
                           ),
-                          SizedBox(height: 10),
+                          const   SizedBox(height: 10),
                           TextButton.icon(
                               onPressed: () {
                                 showBloodType();
                               },
-                              icon: Icon(Icons.bloodtype,
+                              icon:const  Icon(Icons.bloodtype,
                                   size: 20, color: Colors.red),
-                              label: Text("Select Blood Type",
+                              label: const Text("Select Blood Type",
                                   style: TextStyle(
                                       fontSize: 20, color: Colors.black)))
                         ]),
                       ),
                       SecondaryButton(
-                          child: Text("Confirm"),
+                          child:const  Text("Confirm"),
                           onPressed: saveLoading
                               ? null
                               : () async {
@@ -979,10 +979,10 @@ class _ProfileState extends State<Profile> {
                                     setState(() {
                                       saveLoading = true;
                                     });
-                                    print(medications);
-                                    print(medicalNote);
-                                    print(bloodType);
-                                    print(donor);
+                                    //print(medications);
+                                    //print(medicalNote);
+                                    //print(bloodType);
+                                    //print(donor);
                                     user.medications = encrypter
                                         .encrypt(medications!, iv: iv)
                                         .base64;
@@ -1005,7 +1005,7 @@ class _ProfileState extends State<Profile> {
                                     //     .convert(utf8.encode(donor))
                                     //     .toString();
 
-                                    await updateUser(user: user!);
+                                    await updateUser(user: user);
                                     // await saveMedicalInfo(
                                     //     userProvider?.appUser?.number,
                                     //         bloodType,
@@ -1026,7 +1026,7 @@ class _ProfileState extends State<Profile> {
                           color: Colors.pink,
                           backgroundColor: Colors.pink,
                           foregroundColor: Colors.white),
-                      SizedBox(height: 10)
+                      const  SizedBox(height: 10)
                     ]),
                   ),
                 ));
@@ -1071,9 +1071,9 @@ class _ProfileState extends State<Profile> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Are you sure you want to logout?",
+                    const   Text("Are you sure you want to logout?",
                         style: TextStyle(color: Colors.white)),
-                    SizedBox(height: 10),
+                    const   SizedBox(height: 10),
                     Row(
                       children: [
                         Expanded(
@@ -1085,13 +1085,13 @@ class _ProfileState extends State<Profile> {
                                     context, 'homeScreen');
                               });
                             },
-                            child: Text("Yes"),
+                            child:const  Text("Yes"),
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.pink,
                                 foregroundColor: Colors.white),
                           ),
                         ),
-                        SizedBox(width: 5),
+                        const  SizedBox(width: 5),
                         Expanded(
                             child: ElevatedButton(
                           onPressed: () {
@@ -1100,7 +1100,7 @@ class _ProfileState extends State<Profile> {
                             });
                           },
                           child:
-                              Text("No", style: TextStyle(color: Colors.black)),
+                          const Text("No", style: TextStyle(color: Colors.black)),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white70,
                             // shape: const OutlinedBorder(
@@ -1138,15 +1138,15 @@ class _ProfileState extends State<Profile> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Please select your blood type",
+                      const   Text("Please select your blood type",
                           style: TextStyle(color: Colors.black)),
-                      SizedBox(height: 10),
+                      const  SizedBox(height: 10),
                       Column(
                         children: [
                           SizedBox(
                               width: double.infinity,
                               child: RadioListTile(
-                                title: Text("A+"),
+                                title: const Text("A+"),
                                 groupValue: bloodType,
                                 value: "A+",
                                 onChanged: (value) {
@@ -1233,7 +1233,7 @@ class _ProfileState extends State<Profile> {
                             onChanged: (value) {
                               setState(() {
                                 bloodTypes = value.toString();
-                                print(bloodType);
+                               // print(bloodType);
                                 Navigator.pop(context);
                               });
                             },
@@ -1275,7 +1275,7 @@ class _ProfileState extends State<Profile> {
       }
     } on PlatformException catch (e) {
       if (e.code == auth_error.notAvailable) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("Your device does not have support for verifying you "
               "\nTry change device in order to change pin"),
           backgroundColor: Colors.pinkAccent,
@@ -1284,7 +1284,7 @@ class _ProfileState extends State<Profile> {
           context,
         );
       } else if (e.code == auth_error.notEnrolled) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("Set phone lock or fingerprint\nto change pin"),
           backgroundColor: Colors.pinkAccent,
         ));
@@ -1293,7 +1293,7 @@ class _ProfileState extends State<Profile> {
         );
       } else {
         // ...
-        print("norm");
+       // print("norm");
       }
     }
   }

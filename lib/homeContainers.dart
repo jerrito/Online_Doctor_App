@@ -6,28 +6,28 @@ import 'package:project/doctorSearch.dart';
 import 'package:project/main.dart';
 
 class DoctorInfo extends StatelessWidget {
-  final String Name;
-  final String Speciality;
+  final String name;
+  final String speciality;
   final String location;
   final String picture;
   final String number;
   final void Function()? onTap;
   final void Function()? onDoubleTap;
   final void Function()? onLongPress;
-  final String Experience;
-  final String Patients;
+  final String experience;
+  final String patients;
 
   const DoctorInfo(
       {Key? key,
-      required this.Name,
-      required this.Speciality,
+      required this.name,
+      required this.speciality,
       required this.location,
       required this.picture,
       this.onTap,
       this.onDoubleTap,
       this.onLongPress,
-      required this.Experience,
-      required this.Patients,
+      required this.experience,
+      required this.patients,
       required this.number})
       : super(key: key);
 
@@ -40,11 +40,11 @@ class DoctorInfo extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => DoctorOptions(
-                    name: Name,
-                    speciality: Speciality,
+                    name: name,
+                    speciality: speciality,
                     pic: picture,
-                    patients: Patients,
-                    experience: Experience,
+                    patients: patients,
+                    experience: experience,
                     follow: '1.53K',
                     location: location,
                     number: number)));
@@ -71,7 +71,7 @@ class DoctorInfo extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text("Looking For Your Desire\nSpecialist Doctor?",
+                  const Text("Looking For Your Desire\nSpecialist Doctor?",
                       style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -80,21 +80,22 @@ class DoctorInfo extends StatelessWidget {
                   SizedBox(height: h_s * 5),
                   // VerticalDivider(width: 1,indent: 80,endIndent:20,thickness: 2,color: Colors.white,),
                   Text(
-                      Name.length >= 20
-                          ? "${Name.substring(0, 17) + "..."}"
-                          : "Dr. $Name",
-                      style: TextStyle(
+                      name.length >= 20
+                          ? "${name.substring(0, 17) + "..."}"
+                          : "Dr. $name",
+                      style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       )),
-                  Text("$Speciality",
-                      style: TextStyle(fontSize: 14, color: Colors.white)),
+                  Text(speciality,
+                      style:
+                          const TextStyle(fontSize: 14, color: Colors.white)),
                   Text(
                       location.length >= 20
                           ? "${location.substring(0, 17) + "..."}"
-                          : "$location",
-                      style: TextStyle(fontSize: 14, color: Colors.white))
+                          : location,
+                      style: const TextStyle(fontSize: 14, color: Colors.white))
                 ],
               ),
               SizedBox(
@@ -107,7 +108,7 @@ class DoctorInfo extends StatelessWidget {
                       // imageCacheHeight: 110,imageCacheWidth: 50,
                       // placeholderCacheHeight:110 ,placeholderCacheWidth:50 ,
                       placeholder: './assets/images/docmain.png',
-                      image: '${picture}',
+                      image: picture,
                       imageErrorBuilder: (context, error, stackTrace) {
                         return Image.asset('./assets/images/docmain.png',
                             fit: BoxFit.fill);
@@ -136,48 +137,46 @@ class DoctorCategories extends StatelessWidget {
         Navigator.push(context,
             MaterialPageRoute(builder: (BuildContext context) {
           return DoctorSearch(
-            cardvalue: "$role",
+            cardvalue: role,
           );
         }));
       },
       child: Container(
-          margin: EdgeInsets.only(left: 10, right: 10),
+          margin: const EdgeInsets.only(left: 10, right: 10),
           width: w_s * 27.78,
           height: h_s * 12.5,
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(10)),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Icon(icon, color: Colors.pink),
-            SizedBox(height: 10),
-            Text(
-                role.length >= 20
-                    ? "${role.substring(0, 17) + "..."}"
-                    : "$role",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))
+            const SizedBox(height: 10),
+            Text(role.length >= 20 ? "${role.substring(0, 17) + "..."}" : role,
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))
           ])),
     );
   }
 }
 
 class DoctorPick extends StatelessWidget {
-  final String Name;
-  final String Speciality;
+  final String name;
+  final String speciality;
   final void Function()? onTap;
   final void Function()? onDoubleTap;
   final void Function()? onLongPress;
-  final String Experience;
-  final String Patients;
+  final String experience;
+  final String patients;
   final double rating;
   final String picture;
   final String location;
   final String number;
   const DoctorPick(
       {Key? key,
-      required this.Name,
-      required this.Speciality,
+      required this.name,
+      required this.speciality,
       required this.picture,
-      required this.Experience,
-      required this.Patients,
+      required this.experience,
+      required this.patients,
       required this.rating,
       this.onTap,
       this.onDoubleTap,
@@ -194,11 +193,11 @@ class DoctorPick extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => DoctorOptions(
-                      name: Name,
-                      speciality: Speciality,
+                      name: name,
+                      speciality: speciality,
                       pic: picture,
-                      patients: Patients,
-                      experience: Experience,
+                      patients: patients,
+                      experience: experience,
                       follow: '1.53K',
                       location: location,
                       number: number,
@@ -209,7 +208,7 @@ class DoctorPick extends StatelessWidget {
       child: Container(
           width: w_s * 72.22,
           height: h_s * 23.125,
-          padding: EdgeInsets.only(left: 3, right: 3),
+          padding: const EdgeInsets.only(left: 3, right: 3),
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(10)),
           child: Row(
@@ -228,16 +227,17 @@ class DoctorPick extends StatelessWidget {
                     //  Text("Specialist Doctor?",style:TextStyle(fontSize:14,fontWeight:FontWeight.bold,color:Colors.white)),
                     // VerticalDivider(width: 1,indent: 80,endIndent:20,thickness: 2,color: Colors.white,),
                     Text(
-                        Name.length >= 20
-                            ? "Dr ${Name.substring(0, 19) + "..."}"
-                            : "Dr. $Name",
-                        style: TextStyle(
+                        name.length >= 20
+                            ? "Dr ${name.substring(0, 19) + "..."}"
+                            : "Dr. $name",
+                        style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         )),
-                    Text("$Speciality",
-                        style: TextStyle(fontSize: 14, color: Colors.black)),
+                    Text(speciality,
+                        style:
+                            const TextStyle(fontSize: 14, color: Colors.black)),
                     RatingBar.builder(
                       initialRating: rating,
                       minRating: 1,
@@ -245,21 +245,23 @@ class DoctorPick extends StatelessWidget {
                       allowHalfRating: true,
                       itemCount: 5,
                       itemSize: 15,
-                      itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                      itemBuilder: (context, _) => Icon(
+                      itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      itemBuilder: (context, _) => const Icon(
                         Icons.star,
                         color: Colors.amber,
                       ),
                       onRatingUpdate: (rating) {
-                        print(rating);
+                        // print(rating);
                       },
                     ),
-                    SizedBox(height: 7),
-                    Text("Experience: ${Experience} year(s)",
-                        style: TextStyle(fontSize: 14, color: Colors.black)),
-                    SizedBox(height: 10),
-                    Text("Patients  \n$Patients",
-                        style: TextStyle(fontSize: 14, color: Colors.black))
+                    const SizedBox(height: 7),
+                    Text("Experience: $experience year(s)",
+                        style:
+                            const TextStyle(fontSize: 14, color: Colors.black)),
+                    const SizedBox(height: 10),
+                    Text("Patients  \n$patients",
+                        style:
+                            const TextStyle(fontSize: 14, color: Colors.black))
                   ],
                 ),
               ),
@@ -273,7 +275,7 @@ class DoctorPick extends StatelessWidget {
                       // imageCacheHeight: 140,imageCacheWidth: 50,
                       //  placeholderCacheHeight:140 ,placeholderCacheWidth:50 ,
                       placeholder: './assets/images/doctor_1.jpg',
-                      image: '${picture}',
+                      image: picture,
                       imageErrorBuilder: (context, error, stackTrace) {
                         return Image.asset('./assets/images/docmain.png',
                             fit: BoxFit.fill);
@@ -286,23 +288,23 @@ class DoctorPick extends StatelessWidget {
 }
 
 class DoctorsAvailableOnline extends StatelessWidget {
-  final String Name;
-  final String Speciality;
+  final String name;
+  final String speciality;
   final void Function()? onTap;
   final void Function()? onDoubleTap;
   final void Function()? onLongPress;
-  final String Experience;
-  final String Patients;
+  final String experience;
+  final String patients;
   final String number;
   final String picture;
   final String location;
   const DoctorsAvailableOnline(
       {Key? key,
-      required this.Name,
-      required this.Speciality,
+      required this.name,
+      required this.speciality,
       required this.picture,
-      required this.Experience,
-      required this.Patients,
+      required this.experience,
+      required this.patients,
       this.onTap,
       this.onDoubleTap,
       this.onLongPress,
@@ -318,11 +320,11 @@ class DoctorsAvailableOnline extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => DoctorOptions(
-                      name: Name,
-                      speciality: Speciality,
+                      name: name,
+                      speciality: speciality,
                       pic: picture,
-                      patients: Patients,
-                      experience: Experience,
+                      patients: patients,
+                      experience: experience,
                       follow: '1.53K',
                       location: location,
                       number: number,
@@ -333,8 +335,8 @@ class DoctorsAvailableOnline extends StatelessWidget {
       child: Container(
           width: w_s * 41.67,
           height: h_s * 23.75,
-          margin: EdgeInsets.all(10),
-          padding: EdgeInsets.only(right: 2, left: 2),
+          margin: const EdgeInsets.all(10),
+          padding: const EdgeInsets.only(right: 2, left: 2),
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(10)),
           child: Row(
@@ -353,41 +355,48 @@ class DoctorsAvailableOnline extends StatelessWidget {
                     //  Text("Specialist Doctor?",style:TextStyle(fontSize:14,fontWeight:FontWeight.bold,color:Colors.white)),
                     // VerticalDivider(width: 1,indent: 80,endIndent:20,thickness: 2,color: Colors.white,),
                     Text(
-                        Name.length >= 15
-                            ? "Dr ${Name.substring(0, 14) + "..."}"
-                            : "Dr. $Name",
-                        style: TextStyle(
+                        name.length >= 15
+                            ? "Dr ${name.substring(0, 14) + "..."}"
+                            : "Dr. $name",
+                        style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         )),
-                    Text("$Speciality",
-                        style: TextStyle(fontSize: 12, color: Colors.black)),
-                    SizedBox(height: 4),
-                    Text("Experience\n$Experience",
-                        style: TextStyle(fontSize: 12, color: Colors.black)),
-                    SizedBox(height: 4),
-                    Text("Patients\n$Patients",
-                        style: TextStyle(fontSize: 12, color: Colors.black))
+                    Text(speciality,
+                        style:
+                            const TextStyle(fontSize: 12, color: Colors.black)),
+                    const SizedBox(height: 4),
+                    Text("Experience\n$experience",
+                        style:
+                            const TextStyle(fontSize: 12, color: Colors.black)),
+                    const SizedBox(height: 4),
+                    Text("Patients\n$patients",
+                        style:
+                            const TextStyle(fontSize: 12, color: Colors.black))
                   ],
                 ),
               ),
               SizedBox(
                   width: w_s * 12.89,
                   height: h_s * 12.5,
-                  child: Image.network("$picture",
-                      fit: BoxFit.fill,
-                      width: w_s * 12.89,
-                      height: h_s * 12.5)),
-              FadeInImage.assetNetwork(
-                placeholder: './assets/images/docmain.png',
-                image: picture,
-                imageErrorBuilder: (context, error, stackTrace) {
-                  return Image.asset('./assets/images/docmain.png',
-                      fit: BoxFit.fitWidth);
-                },
-                fit: BoxFit.fitWidth,
-              )
+                  child:
+                      //Image.network("$picture",
+                      //     fit: BoxFit.fill,
+                      //     width: w_s * 12.89,
+                      //     height: h_s * 12.5)
+                      FadeInImage.assetNetwork(
+                    fit: BoxFit.fill,
+                    width: w_s * 12.89,
+                    height: h_s * 12.5,
+                    placeholder: './assets/images/docmain.png',
+                    image: picture,
+                    imageErrorBuilder: (context, error, stackTrace) {
+                      return Image.asset('./assets/images/docmain.png',
+                          fit: BoxFit.fill);
+                    },
+                    // fit: BoxFit.fitWidth,
+                  )),
             ],
           )),
     );
@@ -395,8 +404,8 @@ class DoctorsAvailableOnline extends StatelessWidget {
 }
 
 class DoctorArea extends StatelessWidget {
-  final String Name;
-  final String Speciality;
+  final String name;
+  final String speciality;
   final String number;
   final void Function()? onTap;
   final void Function()? onDoubleTap;
@@ -405,8 +414,8 @@ class DoctorArea extends StatelessWidget {
   final String location;
   const DoctorArea(
       {Key? key,
-      required this.Name,
-      required this.Speciality,
+      required this.name,
+      required this.speciality,
       required this.picture,
       this.onTap,
       this.onDoubleTap,
@@ -423,8 +432,8 @@ class DoctorArea extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => DoctorOptions(
-                      name: Name,
-                      speciality: Speciality,
+                      name: name,
+                      speciality: speciality,
                       pic: picture,
                       patients: "755",
                       experience: "3 Years",
@@ -437,7 +446,7 @@ class DoctorArea extends StatelessWidget {
       onLongPress: onLongPress,
       child: Container(
           width: double.infinity, //height: 100,
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(10)),
           child: ListTile(
@@ -449,17 +458,17 @@ class DoctorArea extends StatelessWidget {
               height: 60,
               child: CircleAvatar(
                 backgroundImage:
-                    Image.network("$picture", fit: BoxFit.cover).image,
+                    Image.network(picture, fit: BoxFit.cover).image,
               ),
             ),
-            title: Text("Dr. $Name",
-                style: TextStyle(
+            title: Text("Dr. $name",
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 )),
-            subtitle: Text("$Speciality\n\n$location",
-                style: TextStyle(fontSize: 16, color: Colors.black)),
+            subtitle: Text("$speciality\n\n$location",
+                style: const TextStyle(fontSize: 16, color: Colors.black)),
             //Text("$location",style:TextStyle(fontSize:12,color:Colors.black)),
           )),
     );
@@ -467,8 +476,8 @@ class DoctorArea extends StatelessWidget {
 }
 
 class DoctorSearcher extends StatelessWidget {
-  final String Name;
-  final String Speciality;
+  final String name;
+  final String speciality;
   final String number;
   final String image;
   final void Function()? onTap;
@@ -478,8 +487,8 @@ class DoctorSearcher extends StatelessWidget {
   final String location;
   const DoctorSearcher(
       {Key? key,
-      required this.Name,
-      required this.Speciality,
+      required this.name,
+      required this.speciality,
       this.onTap,
       this.onDoubleTap,
       this.onLongPress,
@@ -496,8 +505,8 @@ class DoctorSearcher extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => DoctorOptions(
-                      name: Name,
-                      speciality: Speciality,
+                      name: name,
+                      speciality: speciality,
                       pic: image,
                       patients: "755",
                       experience: "3 Years",
@@ -510,7 +519,7 @@ class DoctorSearcher extends StatelessWidget {
       onLongPress: onLongPress,
       child: Container(
           width: double.infinity, //height: 100,
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(10)),
           child: ListTile(
@@ -521,17 +530,17 @@ class DoctorSearcher extends StatelessWidget {
               width: 60,
               height: 60,
               child: CircleAvatar(
-                backgroundImage: Image.network("$image").image,
+                backgroundImage: Image.network(image).image,
               ),
             ),
-            title: Text("Dr. $Name",
-                style: TextStyle(
+            title: Text("Dr. $name",
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 )),
-            subtitle: Text("$Speciality\n\n$location",
-                style: TextStyle(fontSize: 16, color: Colors.black)),
+            subtitle: Text("$speciality\n\n$location",
+                style: const TextStyle(fontSize: 16, color: Colors.black)),
             //Text("$location",style:TextStyle(fontSize:12,color:Colors.black)),
           )),
     );

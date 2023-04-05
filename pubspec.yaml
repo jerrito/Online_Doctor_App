@@ -65,6 +65,9 @@ dependencies:
   local_auth: ^2.1.6
   #crypto: ^3.0.2
   encrypt: ^5.0.1
+  country_code_picker: ^3.0.0
+  flutter_localization: ^0.1.10
+  double_back_to_close: ^2.0.0
 
 
 

@@ -1,9 +1,11 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project/MainButton.dart';
 import 'package:project/MainInput.dart';
 import 'package:project/Size_of_screen.dart';
@@ -11,7 +13,7 @@ import 'package:project/firebase_services.dart';
 import 'package:project/main.dart';
 import 'package:project/otp.dart';
 import 'package:project/strings.dart';
-import 'package:project/user.dart' as User_main;
+import 'package:project/user.dart' as userMain;
 import 'package:project/userProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -21,27 +23,30 @@ import 'package:provider/provider.dart';
 // title: 'Sign In Failed',
 // );
 
-class Signuppage extends StatefulWidget {
-  const Signuppage({Key? key}) : super(key: key);
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
-  State<Signuppage> createState() => _SignuppageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignuppageState extends State<Signuppage> {
+class _SignUpPageState extends State<SignUpPage> {
   FirebaseAuth auth = FirebaseAuth.instance;
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseFirestore fireStore = FirebaseFirestore.instance;
   GlobalKey<ScaffoldMessengerState> scaffoldMessenger = GlobalKey();
   GlobalKey<FormState> form = GlobalKey();
   var firebaseService = FirebaseServices();
   UserProvider? userProvider;
-  TextEditingController fullname = TextEditingController();
+  TextEditingController fullName = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController phoneNumber = TextEditingController();
   TextEditingController password = TextEditingController();
   bool checkLoading = true;
-  bool loadingornot = false;
-
+  bool loadingOrNot = false;
+  int index_2 = 0;
+  bool obscure_2 = true;
+  String countryCode = "+233";
+  String countryAbbreviation = "GH";
   List<String> pics = [
     "doctor_1.jpg",
     "doctor_2.jpg",
@@ -61,7 +66,7 @@ class _SignuppageState extends State<Signuppage> {
     SizeConfig().init(context);
     return Scaffold(
         body: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
                   Color.fromRGBO(210, 230, 250, 0.2),
@@ -71,10 +76,10 @@ class _SignuppageState extends State<Signuppage> {
                 end: Alignment.bottomRight,
               ),
             ),
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Visibility(
-              visible: !loadingornot,
-              replacement: Center(
+              visible: !loadingOrNot,
+              replacement: const Center(
                   child: SpinKitFadingCube(
                 color: Colors.pink,
                 size: 50.0,
@@ -87,8 +92,8 @@ class _SignuppageState extends State<Signuppage> {
                     Expanded(
                       child: ListView(
                         children: [
-                          SizedBox(height: 30),
-                          Center(
+                          const SizedBox(height: 30),
+                          const Center(
                             child: Text(
                               "Create Account",
                               style: TextStyle(
@@ -109,58 +114,73 @@ class _SignuppageState extends State<Signuppage> {
                             ),
                           ),
                           //Center(child: Text("Let's get things going by signing up", style: TextStyle(fontSize: 17, color: Colors.black),)),
-                          SizedBox(height: 15),
+                          const SizedBox(height: 15),
                           MainInput(
-                            validator: FullNameValidator,
-                            controller: fullname,
-                            label: Text("Full Name"),
-                            prefixIcon: Icon(Icons.person), obscureText: false,
+                            validator: fullNameValidator,
+                            controller: fullName,
+                            label:const Text("Full Name"),
+                            prefixIcon:const Icon(Icons.person), obscureText: false,
                             // suffixIcon:Icon(Icons.person) ,
                           ),
-                          SizedBox(height: 15),
+                          const SizedBox(height: 15),
                           MainInput(
                             validator: phoneNumberValidator,
                             controller: phoneNumber,
-                            label: Text("Phone Number"),
-                            prefixIcon: Icon(Icons.person),
+                            label: const Text("Phone Number"),
+                            prefixIcon: selectCountry(),
                             keyboardType: TextInputType.number,
                             //  suffixIcon:Icon(Icons.remove_red_eye),
                             obscureText: false,
                           ),
-                          SizedBox(height: 15),
+                          const SizedBox(height: 15),
                           MainInput(
                             validator: emailValidator,
                             controller: email,
-                            label: Text("Email"),
+                            label: const Text("Email"),
                             keyboardType: TextInputType.emailAddress,
-                            prefixIcon: Icon(Icons.email), obscureText: false,
+                            prefixIcon: const Icon(Icons.email),
+                            obscureText: false,
                             // suffixIcon:Icon(Icons.person) ,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
 
                           MainInput(
                             validator: pinValidator,
                             controller: password,
-                            label: Text("Password"),
-                            prefixIcon: Icon(Icons.password_outlined),
-                            suffixIcon: Icon(Icons.remove_red_eye),
-                            obscureText: true,
+                            label: const Text("Password"),
+                            prefixIcon: const Icon(Icons.password_outlined),
+                            suffixIcon: IconButton(
+                                icon: obscure_2 == true
+                                    ? SvgPicture.asset("./assets/svgs/eye.svg",
+                                        color: Colors.pink)
+                                    : SvgPicture.asset(
+                                        "./assets/svgs/eye-off.svg",
+                                        color: Colors.grey),
+                                onPressed: () {
+                                  setState(() {
+                                    obscure_2 = false;
+                                    index_2++;
+                                    if (index_2 % 2 == 0) {
+                                      obscure_2 = true;
+                                    }
+                                  });
+                                }),
+                            obscureText: obscure_2,
                           ),
                         ],
                       ),
                     ),
                     SecondaryButton(
-                      child: Text("Signup"),
                       foregroundColor: Colors.white,
                       backgroundColor: Colors.pink,
-                      onPressed: loadingornot
+                      onPressed: loadingOrNot
                           ? null
                           : () async {
                               if (form.currentState?.validate() == true) {
                                 setState(() {
-                                  loadingornot = true;
+                                  loadingOrNot = true;
                                 });
                                 await ayaresapaRegister();
 
@@ -168,6 +188,7 @@ class _SignuppageState extends State<Signuppage> {
                               }
                             },
                       color: Colors.pink,
+                      child: const Text("Signup"),
                     ),
                     Center(
                         child: Row(
@@ -200,14 +221,16 @@ class _SignuppageState extends State<Signuppage> {
   String? phoneNumberValidator(String? value) {
     final pattern = RegExp("([0][2358])[0-9]{8}");
 
-    if (pattern.stringMatch(value ?? "") != value) {
-      return AppStrings.invalidPhoneNumber;
+    // if (pattern.stringMatch(value ?? "") != value) {
+    //   return AppStrings.invalidPhoneNumber;
+    // }
+    if (value?.isEmpty == true) {
+      return AppStrings.isRequired;
     }
-
     return null;
   }
 
-  String? FullNameValidator(String? value) {
+  String? fullNameValidator(String? value) {
     final pattern = RegExp("([A-Z][a-z]+)[/s/ ]+([A-Z][a-z]+)");
 
     if (pattern.stringMatch(value ?? "") != value) {
@@ -217,7 +240,7 @@ class _SignuppageState extends State<Signuppage> {
     return null;
   }
 
-  String? NameValidator(String? value) {
+  String? nameValidator(String? value) {
     final pattern = RegExp("[A-Z]([a-z]+)");
 
     if (pattern.stringMatch(value ?? "") != value) {
@@ -237,20 +260,20 @@ class _SignuppageState extends State<Signuppage> {
   }
 
   Future<void> ayaresapaRegister() async {
-    print("sup");
-    String completePhoneNumber = "+233${phoneNumber.text.substring(1)}";
-    var result_main =
+    //print("sup");
+    String completePhoneNumber = "$countryCode${phoneNumber.text}";
+    var resultMain =
         await FirebaseServices().getUser(phoneNumber: completePhoneNumber);
 
-    print(result_main?.status);
-    if (result_main?.status == QueryStatus.Successful) {
-      var user_old = result_main?.data;
-      if (user_old?.number == completePhoneNumber) {
+    //print(resultMain?.status);
+    if (resultMain?.status == QueryStatus.Successful) {
+      var userOld = resultMain?.data;
+      if (userOld?.number == completePhoneNumber) {
         setState(() {
-          loadingornot = false;
+          loadingOrNot = false;
         });
-        print("Account already exist");
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        // print("Account already exist");
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           duration: Duration(seconds: 5),
           content: Text("Account already exist",
               style: TextStyle(color: Colors.white)),
@@ -264,12 +287,12 @@ class _SignuppageState extends State<Signuppage> {
 
         return;
       }
-      phoneSignIn(phoneNumber: "+233${phoneNumber.text.substring(1)}");
+      phoneSignIn(phoneNumber: "$countryCode${phoneNumber.text}");
     }
     setState(() {
-      loadingornot = false;
+      loadingOrNot = false;
     });
-    print("Account error");
+    // print("Account error");
     // ScaffoldMessenger.of(context).showSnackBar(
     //     SnackBar(duration: Duration(seconds: 5),
     //       content: Text("Error registering account",style:TextStyle(color:Colors.white)),
@@ -288,8 +311,8 @@ class _SignuppageState extends State<Signuppage> {
   }
 
   _onVerificationCompleted(PhoneAuthCredential authCredential) async {
-    print("verification completed ${authCredential.smsCode}");
-    print(" ${authCredential.verificationId}");
+    // print("verification completed ${authCredential.smsCode}");
+    //print(" ${authCredential.verificationId}");
     User? user = FirebaseAuth.instance.currentUser;
 
     if (authCredential.smsCode != null) {
@@ -305,34 +328,42 @@ class _SignuppageState extends State<Signuppage> {
   }
 
   _onVerificationFailed(FirebaseAuthException exception) {
-    print("verification failed ${exception.message}");
+    //print("verification failed ${exception.message}");
     if (exception.code == 'invalid-phone-number') {}
+    setState(() {
+      loadingOrNot = false;
+    });
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      duration: Duration(seconds: 5),
+      content: Text("Verification failed. Please try again",
+          style: TextStyle(color: Colors.white)),
+      backgroundColor: Color.fromRGBO(20, 100, 150, 1),
+    ));
   }
 
   _onCodeSent(String verificationId, int? forceResendingToken) {
-    print(verificationId);
-    Future.delayed(Duration(seconds: 2), () {
+   // print(verificationId);
+    Future.delayed(const Duration(seconds: 2), () {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OTP_verify(
+          builder: (context) => OTPVerify(
             otpRequest: OTPRequest(
                 forceResendingToken: forceResendingToken,
                 verifyId: verificationId,
-                phoneNumber: phoneNumber.text,
+                phoneNumber: "$countryCode${phoneNumber.text}",
                 //name: username.text,
                 see: "register",
                 onSuccessCallback: () async {
-                  var user = User_main.User(
-                      number: "+233${phoneNumber.text.substring(1)}",
-                      fullname: fullname.text,
+                  var user = userMain.User(
+                      number: "$countryCode${phoneNumber.text}",
+                      fullname: fullName.text,
                       email: email.text,
                       password: password.text,
                       bloodType: "",
                       medications: "",
                       medicalNotes: "",
-                      organDonor: ""
-                  );
+                      organDonor: "");
                   var result = await FirebaseServices().saveUser(user: user);
                   if (result?.status == QueryStatus.Successful) {
                     finalRegister();
@@ -350,16 +381,16 @@ class _SignuppageState extends State<Signuppage> {
 
   void finalRegister() async {
     userProvider = context.read<UserProvider>();
-    print("Account success");
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      duration: const Duration(seconds: 5),
+    //print("Account success");
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      duration: Duration(seconds: 5),
       content: Text("Successfully registered",
           style: TextStyle(color: Colors.white)),
       backgroundColor: Color.fromRGBO(20, 100, 150, 1),
     ));
     var result2 = await userProvider?.getUser(
-        phoneNumber: "+233${phoneNumber.text.substring(1)}");
-    print(result2?.status);
+        phoneNumber: "$countryCode${phoneNumber.text}");
+    // print(result2?.status);
     if (result2?.status == QueryStatus.Successful) {
       navigate();
     }
@@ -371,5 +402,25 @@ class _SignuppageState extends State<Signuppage> {
 
   _onCodeTimeout(String timeout) {
     return null;
+  }
+
+  Widget selectCountry() {
+    return CountryCodePicker(
+        onInit: (val) {
+          //print(val);
+          countryCode = val.toString();
+          // print(countryCode);
+        },
+        initialSelection: countryAbbreviation,
+        favorite: const [
+          "GH",
+          "USA",
+        ],
+        onChanged: (val) {
+          //print(val);
+          countryAbbreviation = val.code!;
+          countryCode = val.toString(); //
+          //print(countryCode);
+        });
   }
 }

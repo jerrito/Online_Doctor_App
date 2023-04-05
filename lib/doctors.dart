@@ -42,22 +42,23 @@ class _DoctorsAvailableState extends State<DoctorsAvailable> {
         //   ],
         // ),
         body: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromRGBO(210, 230, 250, 0.2),
-                  Color.fromRGBO(210, 230, 250, 0.2)
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
-            padding: EdgeInsets.all(10),
+            decoration:
+                const BoxDecoration(color: Color.fromRGBO(210, 230, 250, 0.2)
+                    // gradient: LinearGradient(
+                    //   colors: [
+                    //     Color.fromRGBO(210, 230, 250, 0.2),
+                    //     Color.fromRGBO(210, 230, 250, 0.2)
+                    //   ],
+                    //   begin: Alignment.topLeft,
+                    //   end: Alignment.bottomRight,
+                    // ),
+                    ),
+            padding: const EdgeInsets.all(10),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   Container(
                     alignment: Alignment.center,
                     height: h_s * 6.25,
@@ -65,13 +66,6 @@ class _DoctorsAvailableState extends State<DoctorsAvailable> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextButton(
-                          child: Text("Online",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: onlineCheck
-                                      ? Colors.pink
-                                      : Colors.black)),
                           onFocusChange: (focus) {
                             onlineCheck = false;
                             followingCheck = true;
@@ -84,8 +78,15 @@ class _DoctorsAvailableState extends State<DoctorsAvailable> {
                               followingCheck = false;
                             });
                           },
+                          child: Text("Online",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: onlineCheck
+                                      ? Colors.pink
+                                      : Colors.black)),
                         ),
-                        VerticalDivider(
+                        const VerticalDivider(
                           color: Colors.black,
                           width: 1,
                           indent: 15,
@@ -93,13 +94,6 @@ class _DoctorsAvailableState extends State<DoctorsAvailable> {
                           thickness: 2,
                         ),
                         TextButton(
-                          child: Text("Following",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: followingCheck
-                                      ? Colors.pink
-                                      : Colors.black)),
                           onPressed: () {
                             setState(() {
                               onlineCheck = false;
@@ -112,6 +106,13 @@ class _DoctorsAvailableState extends State<DoctorsAvailable> {
                           },
                           focusNode: following,
                           autofocus: followingCheck,
+                          child: Text("Following",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: followingCheck
+                                      ? Colors.pink
+                                      : Colors.black)),
                         ),
                       ],
                     ),
@@ -120,8 +121,8 @@ class _DoctorsAvailableState extends State<DoctorsAvailable> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 5.0),
+                      const Padding(
+                        padding: EdgeInsets.only(right: 5.0),
                         child: Text(
                           "Find a Specialist",
                           style: TextStyle(
@@ -131,14 +132,14 @@ class _DoctorsAvailableState extends State<DoctorsAvailable> {
                         ),
                       ),
                       IconButton(
-                        icon: Icon(Icons.search),
+                        icon: const Icon(Icons.search),
                         onPressed: () {
                           Navigator.pushNamed(context, "doctorSearch");
                         },
                       ),
                     ],
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   FutureBuilder(
                       future:
                           onlineCheck ? mongo.getDoctor() : mongo.getDoctor_2(),
@@ -149,7 +150,7 @@ class _DoctorsAvailableState extends State<DoctorsAvailable> {
                             child: SizedBox(
                               width: w_s * 72.22,
                               height: h_s * 20.625,
-                              child: Center(
+                              child: const Center(
                                   child: SpinKitFadingCube(
                                 color: Colors.pink,
                                 size: 50.0,
@@ -169,27 +170,29 @@ class _DoctorsAvailableState extends State<DoctorsAvailable> {
                           );
                         } else {
                           return Center(
-                            child: Container(
+                            child: SizedBox(
                               width: w_s * 72.22,
                               height: h_s * 20.625,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Icon(Icons.wifi_off, color: Colors.pink),
-                                  SizedBox(height: 20),
-                                  Text("Network error",
+                                  const Icon(Icons.wifi_off,
+                                      color: Colors.pink),
+                                  const SizedBox(height: 20),
+                                  const Text("Network error",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold)),
                                   MainButton(
                                     onPressed: () async {
                                       await mongo.getDoctor();
                                       // await mongo.getDoctor();
-                                      Navigator.restorablePushReplacementNamed(
-                                          context, "doctorsAvailable");
+                                      if (!context.mounted)return;
+                                        Navigator.restorablePushReplacementNamed(
+                                                context, "doctorsAvailable");
                                     },
                                     color: Colors.pink,
                                     backgroundColor: Colors.pink,
-                                    child: Text("Refresh"),
+                                    child: const Text("Refresh"),
                                   )
                                 ],
                               ),
@@ -220,11 +223,11 @@ class _DoctorsAvailableState extends State<DoctorsAvailable> {
 
   Widget docsAvailable(Appointment user) {
     return DoctorsAvailableOnline(
-      Name: "${user.fullname}",
-      Speciality: "${user.speciality}",
+      name: "${user.fullname}",
+      speciality: "${user.speciality}",
       picture: "${user.image}",
-      Experience: "${user.experience}",
-      Patients: "${user.patients}",
+      experience: "${user.experience}",
+      patients: "${user.patients}",
       location: '${user.location}',
       number: '${user.number}',
     );

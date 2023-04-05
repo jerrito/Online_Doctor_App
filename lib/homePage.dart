@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
     SizeConfig().init(context);
     return Scaffold(
         body: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
                   Color.fromRGBO(210, 230, 250, 0.2),
@@ -45,13 +45,13 @@ class _HomePageState extends State<HomePage> {
                 end: Alignment.bottomRight,
               ),
             ),
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: h_s * 3.75),
-                Text(
+                const Text(
                   "Find your",
                   style: TextStyle(
                       fontSize: 18,
@@ -61,8 +61,8 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 5.0),
+                    const Padding(
+                      padding: EdgeInsets.only(right: 5.0),
                       child: Text(
                         "Specialist",
                         style: TextStyle(
@@ -73,14 +73,14 @@ class _HomePageState extends State<HomePage> {
                     ),
                     //SizedBox( width: w_s*41.67,height: 40,),
                     IconButton(
-                        icon: Icon(Icons.search),
+                        icon: const Icon(Icons.search),
                         onPressed: () {
                           showSearch(
                               context: context, delegate: DoctorSearching());
                         }),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 FutureBuilder(
                     future: mongo.getDoctor(),
                     builder: (context, AsyncSnapshot snapshot) {
@@ -91,13 +91,13 @@ class _HomePageState extends State<HomePage> {
                             options: CarouselOptions(
                               height: h_s * 20.625,
                               autoPlay: true,
-                              autoPlayInterval: Duration(seconds: 5),
+                              autoPlayInterval: const Duration(seconds: 5),
                               autoPlayCurve: Curves.fastOutSlowIn,
                               enlargeCenterPage: true,
                               enlargeFactor: 0.3,
                             ),
                             itemBuilder: (context, index, realIdx) {
-                              return DocInfo(
+                              return docInfo(
                                   Appointment.fromJson(snapshot.data[index]));
                             });
                       } else if (snapshot.connectionState ==
@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                           child: SizedBox(
                             width: w_s * 72.22,
                             height: h_s * 20.625,
-                            child: Center(
+                            child: const Center(
                                 child: SpinKitFadingCube(
                               color: Colors.pink,
                               size: 50.0,
@@ -115,15 +115,15 @@ class _HomePageState extends State<HomePage> {
                         );
                       } else {
                         return Center(
-                          child: Container(
+                          child: SizedBox(
                             width: w_s * 72.22,
                             height: h_s * 20.625,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(Icons.wifi_off, color: Colors.pink),
-                                SizedBox(height: 20),
-                                Text("Network error",
+                                const Icon(Icons.wifi_off, color: Colors.pink),
+                                const SizedBox(height: 20),
+                                const Text("Network error",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
                                 MainButton(
@@ -144,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                                   backgroundColor: Colors.pink,
                                   child: Visibility(
                                       visible: searching,
-                                      replacement: SpinKitFadingCube(
+                                      replacement: const SpinKitFadingCube(
                                         color: Colors.pink,
                                         //size: 50.0,
                                       ),
@@ -157,12 +157,15 @@ class _HomePageState extends State<HomePage> {
                       }
                     }),
 
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text("Categories"), Icon(Icons.arrow_back)]),
+                    children: const [
+                      Text("Categories"),
+                      Icon(Icons.arrow_back)
+                    ]),
 
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Flexible(
                   child: ListView.builder(
                     reverse: true,
@@ -216,8 +219,8 @@ class _HomePageState extends State<HomePage> {
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Available Doctors"),
-                      TextButton(child: Text("See All"), onPressed: () {})
+                      const Text("Available Doctors"),
+                      TextButton(child: const Text("See All"), onPressed: () {})
                     ]),
                 // CarouselSlider(
                 //     items: items,
@@ -240,7 +243,7 @@ class _HomePageState extends State<HomePage> {
                             options: CarouselOptions(
                               height: h_s * 20.625,
                               autoPlay: true,
-                              autoPlayInterval: Duration(seconds: 5),
+                              autoPlayInterval: const Duration(seconds: 5),
                               autoPlayCurve: Curves.fastOutSlowIn,
                               enlargeCenterPage: true,
                               enlargeFactor: 0.3,
@@ -255,7 +258,7 @@ class _HomePageState extends State<HomePage> {
                           child: SizedBox(
                             width: w_s * 72.22,
                             height: h_s * 23.125,
-                            child: Center(
+                            child: const Center(
                                 child: SpinKitFadingCube(
                               color: Colors.pink,
                               size: 50.0,
@@ -270,9 +273,9 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(Icons.wifi_off, color: Colors.pink),
-                                SizedBox(height: 20),
-                                Text("Network error",
+                                const Icon(Icons.wifi_off, color: Colors.pink),
+                                const SizedBox(height: 20),
+                                const Text("Network error",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
                                 MainButton(
@@ -284,7 +287,7 @@ class _HomePageState extends State<HomePage> {
                                   },
                                   color: Colors.pink,
                                   backgroundColor: Colors.pink,
-                                  child: Text("Refresh"),
+                                  child: const Text("Refresh"),
                                 )
                               ],
                             ),
@@ -305,17 +308,19 @@ class _HomePageState extends State<HomePage> {
                 // ),
               ],
             )),
-        bottomNavigationBar:BottomNavBar(idx: 0,));
+        bottomNavigationBar: BottomNavBar(
+          idx: 0,
+        ));
   }
 
-  Widget DocInfo(Appointment user) {
+  Widget docInfo(Appointment user) {
     return DoctorInfo(
-      Name: "${user.fullname}",
-      Speciality: "${user.speciality}",
+      name: "${user.fullname}",
+      speciality: "${user.speciality}",
       location: "${user.location}",
       picture: "${user.image}",
-      Experience: '${user.experience}',
-      Patients: '${user.patients}',
+      experience: '${user.experience}',
+      patients: '${user.patients}',
       number: '${user.number}',
     );
   }
@@ -336,12 +341,12 @@ class _HomePageState extends State<HomePage> {
 //   ];
   Widget docPick(Appointment user) {
     return DoctorPick(
-      Name: "${user.fullname}",
-      Speciality: "${user.speciality}",
+      name: "${user.fullname}",
+      speciality: "${user.speciality}",
       location: "${user.location}",
       picture: "${user.image}",
-      Experience: '${user.experience}',
-      Patients: '${user.patients}',
+      experience: '${user.experience}',
+      patients: '${user.patients}',
       rating: user.ratings!,
       number: '${user.number}',
     );
@@ -369,7 +374,7 @@ class DoctorSearching extends SearchDelegate<DoctorSearch> {
   List<Widget>? buildActions(BuildContext context) {
     return [
       IconButton(
-          icon: Icon(Icons.clear),
+          icon: const Icon(Icons.clear),
           onPressed: () {
             query = "";
           })
@@ -380,11 +385,11 @@ class DoctorSearching extends SearchDelegate<DoctorSearch> {
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
-        icon: Icon(Icons.arrow_back),
+        icon: const Icon(Icons.arrow_back),
         onPressed: () {
           close(
               context,
-              DoctorSearch(
+              const DoctorSearch(
                 cardvalue: '',
               ));
         });
@@ -408,7 +413,7 @@ class DoctorSearching extends SearchDelegate<DoctorSearch> {
               child: SizedBox(
                 width: w_s * 72.22,
                 height: h_s * 20.625,
-                child: Center(
+                child: const Center(
                     child: SpinKitFadingCube(
                   color: Colors.pink,
                   size: 50.0,
@@ -416,18 +421,18 @@ class DoctorSearching extends SearchDelegate<DoctorSearch> {
               ),
             );
           } else if (!snapshot.hasData) {
-            return Center(
+            return const Center(
                 child: Text("No results match your search",
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.bold)));
           } else {
             return Center(
-              child: Container(
+              child: SizedBox(
                 width: w_s * 72.22,
                 height: h_s * 20.625,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
+                  children: const [
                     Icon(
                       Icons.wifi_off,
                       color: Colors.pink,
@@ -463,7 +468,7 @@ class DoctorSearching extends SearchDelegate<DoctorSearch> {
               child: SizedBox(
                 width: w_s * 72.22,
                 height: h_s * 20.625,
-                child: Center(
+                child: const Center(
                     child: SpinKitFadingCube(
                   color: Colors.pink,
                   size: 50.0,
@@ -471,18 +476,18 @@ class DoctorSearching extends SearchDelegate<DoctorSearch> {
               ),
             );
           } else if (!snapshot.hasData) {
-            return Center(
+            return const Center(
                 child: Text("No results match your search",
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.bold)));
           } else {
             return Center(
-              child: Container(
+              child: SizedBox(
                 width: w_s * 72.22,
                 height: h_s * 20.625,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
+                  children: const [
                     Icon(
                       Icons.wifi_off,
                       color: Colors.pink,
@@ -503,8 +508,8 @@ class DoctorSearching extends SearchDelegate<DoctorSearch> {
 
   Widget DocSeek(Appointment user) {
     return DoctorSearcher(
-        Name: "${user.fullname}",
-        Speciality: "${user.speciality}",
+        name: "${user.fullname}",
+        speciality: "${user.speciality}",
         location: "${user.location}",
         number: '${user.number}',
         image: '${user.image}');

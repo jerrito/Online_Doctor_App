@@ -14,8 +14,7 @@ class AppStrings {
   static String invalidPin1 = "Old Pin entered is wrong";
   static String wrongPin = "Wrong transactional Pin entered";
   static String invalidPin2 = "Entered pins mismatch";
-  static String invalidFullName =
-      "Invalid full name(a space between the names)";
+  static String invalidFullName = "Invalid full name(Non white space)";
   static String invalidName = "Invalid name eg. Stephen";
   static String invalidGHCard = "Invalid Ghana card number eg. GHA-0000000000";
   static String invalidGHNumber = "Invalid Document number eg. AO-0000000";

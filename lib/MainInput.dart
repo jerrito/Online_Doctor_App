@@ -1,24 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:project/Size_of_screen.dart';
-import 'package:project/main.dart';
 
 class MainInput extends StatelessWidget {
- final Widget? prefixIcon;
- final Widget? suffixIcon;
- final Widget? icon;
- final String? hintText;
- final Text? label;
- final String? obscure;
- final String? initialValue;
- final bool obscureText;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final Widget? icon;
+  final String? hintText;
+  final Text? label;
+  final String? obscure;
+  final String? initialValue;
+  final bool obscureText;
 
- final String? Function(String?)? validator;
- final  TextEditingController? controller;
- final TextInputType? keyboardType;
- final void Function(String)? onChanged;
-  const MainInput({Key? key, this.prefixIcon, this.suffixIcon,this.icon, this.label,
-    this.keyboardType,  this.obscure,  required this.obscureText, this.controller,
-    this.hintText, this.validator, this.initialValue, this.onChanged,}) : super(key: key);
+  final String? Function(String?)? validator;
+  final TextEditingController? controller;
+  final TextInputType? keyboardType;
+  final void Function(String)? onChanged;
+  const MainInput({
+    Key? key,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.icon,
+    this.label,
+    this.keyboardType,
+    this.obscure,
+    required this.obscureText,
+    this.controller,
+    this.hintText,
+    this.validator,
+    this.initialValue,
+    this.onChanged,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,35 +39,36 @@ class MainInput extends StatelessWidget {
       autofocus: false,
       initialValue: initialValue,
       validator: validator,
-      controller:controller,
+      controller: controller,
       keyboardType: keyboardType,
-    obscuringCharacter:'•',
+      obscuringCharacter: '•',
       obscureText: obscureText,
       cursorColor: Colors.black54,
       decoration: InputDecoration(
           iconColor: Colors.amberAccent,
-        hintText: hintText,
-        enabledBorder:OutlineInputBorder(
-            borderSide:const BorderSide(color:Colors.black54,width:2,style: BorderStyle.solid),
-            borderRadius: BorderRadius.circular(20)
-        ),
-          focusedBorder:OutlineInputBorder(
-              borderSide:const BorderSide(color:Colors.amberAccent,width:2,style: BorderStyle.solid),
-              borderRadius: BorderRadius.circular(20)
-          ),
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
+          hintText: hintText,
+          enabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                  color: Colors.black54, width: 2, style: BorderStyle.solid),
+              borderRadius: BorderRadius.circular(20)),
+          focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                  color: Colors.amberAccent,
+                  width: 2,
+                  style: BorderStyle.solid),
+              borderRadius: BorderRadius.circular(20)),
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
           label: label,
-       labelStyle: TextStyle(color: Colors.black),
-        border:OutlineInputBorder(
-          borderSide:const BorderSide(color:Colors.black54,width:2,style: BorderStyle.solid),
-      borderRadius: BorderRadius.circular(20)
-        )
-        // ) RoundedRectangleBorder(
-        //   borderRadius: BorderRadius.circular(5),
-        // )
-      ),
-
+          labelStyle: const TextStyle(color: Colors.black),
+          border: OutlineInputBorder(
+              borderSide: const BorderSide(
+                  color: Colors.black54, width: 2, style: BorderStyle.solid),
+              borderRadius: BorderRadius.circular(20))
+          // ) RoundedRectangleBorder(
+          //   borderRadius: BorderRadius.circular(5),
+          // )
+          ),
     );
   }
 }
@@ -72,33 +84,47 @@ class SecondaryInput extends StatelessWidget {
   final bool obscureText;
 
   final String? Function(String?)? validator;
-  final  TextEditingController? controller;
+  final TextEditingController? controller;
   final TextInputType? keyboardType;
   final void Function(String)? onChanged;
-  const SecondaryInput({Key? key, this.prefixIcon, this.suffixIcon,this.icon, this.label,
-    this.keyboardType,  this.obscure,  required this.obscureText, this.controller,
-    this.hintText, this.validator, this.initialValue, this.onChanged,}) : super(key: key);
+  const SecondaryInput({
+    Key? key,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.icon,
+    this.label,
+    this.keyboardType,
+    this.obscure,
+    required this.obscureText,
+    this.controller,
+    this.hintText,
+    this.validator,
+    this.initialValue,
+    this.onChanged,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: TextStyle(color: Colors.white,),
+      style: const TextStyle(
+        color: Colors.white,
+      ),
       onChanged: onChanged,
       autofocus: true,
-      textAlignVertical: TextAlignVertical(y:1),
+      textAlignVertical: const TextAlignVertical(y: 1),
       textInputAction: TextInputAction.send,
       initialValue: initialValue,
       validator: validator,
-      controller:controller,
+      controller: controller,
       keyboardType: keyboardType,
-      obscuringCharacter:'•',
+      obscuringCharacter: '•',
       obscureText: obscureText,
       cursorColor: Colors.pink,
       decoration: InputDecoration(
-          iconColor: Colors.amberAccent,
-          hintText: hintText,
-          prefixIcon: prefixIcon,
-          suffixIcon: suffixIcon,
+        iconColor: Colors.amberAccent,
+        hintText: hintText,
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
 //         enabledBorder: UnderlineInputBorder(
 //
 //         ),
@@ -107,12 +133,10 @@ class SecondaryInput extends StatelessWidget {
 // borderRadius: BorderRadius.only(topLeft: Radius.circular(0), topRight: Radius.circular(0))
 //         ),
 
-
         // ) RoundedRectangleBorder(
         //   borderRadius: BorderRadius.circular(5),
         // )
       ),
-
     );
   }
 }

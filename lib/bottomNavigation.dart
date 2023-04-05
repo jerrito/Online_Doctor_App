@@ -27,7 +27,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           setState(() {
             Navigator.pushReplacementNamed(context, "homepage");
             widget.idx = index;
-            print(indexed);
+            //print(indexed);
           });
         } else if (index == 1) {
           setState(() {

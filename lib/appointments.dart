@@ -53,25 +53,21 @@ class _AppointmentsState extends State<Appointments> {
   //   });
   // }
 
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return SafeArea(
       child: Scaffold(
           body: Container(
-            padding: EdgeInsets.all(10),
-            color: Color.fromRGBO(210, 230, 250, 0.2),
+            padding: const EdgeInsets.all(10),
+            color: const Color.fromRGBO(210, 230, 250, 0.2),
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-
-
-                  const Center(
-                    child: Text("Appointment",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18)),
-                  ),
-
+              const Center(
+                child: Text("Appointment",
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+              ),
 
               SizedBox(height: h_s * 2.5),
               FutureBuilder(
@@ -82,7 +78,7 @@ class _AppointmentsState extends State<Appointments> {
                       return Flexible(
                         child: ListView.builder(
                           itemBuilder: (BuildContext context, int index) {
-                            return appointListget(
+                            return appointListGet(
                                 Appointment.fromJson(snapshot.data[index]));
                           },
                           itemCount: appointmentList,
@@ -90,8 +86,8 @@ class _AppointmentsState extends State<Appointments> {
                       );
                     } else if (snapshot.connectionState ==
                         ConnectionState.waiting) {
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 200.0),
+                      return const Padding(
+                        padding: EdgeInsets.only(top: 200.0),
                         child: Center(
                             child: SpinKitFadingCube(
                           color: Colors.pink,
@@ -100,27 +96,28 @@ class _AppointmentsState extends State<Appointments> {
                       );
                     } else {
                       return Center(
-                        child: Container(
+                        child: SizedBox(
                           width: w_s * 72.22,
                           height: h_s * 20.625,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Icon(Icons.wifi_off, color: Colors.pink),
-                              SizedBox(height: 10),
-                              Text("Network error",
+                              const Icon(Icons.wifi_off, color: Colors.pink),
+                              const SizedBox(height: 10),
+                              const Text("Network error",
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
                               MainButton(
                                 onPressed: () async {
                                   await mongo.con();
                                   // await mongo.getDoctor();
+                                  if (!context.mounted) return;
                                   Navigator.restorablePushReplacementNamed(
                                       context, "homepage");
                                 },
                                 color: Colors.pink,
                                 backgroundColor: Colors.pink,
-                                child: Text("Refresh"),
+                                child: const Text("Refresh"),
                               )
                             ],
                           ),
@@ -151,13 +148,13 @@ class _AppointmentsState extends State<Appointments> {
               // ),
             ]),
           ),
-          bottomNavigationBar:BottomNavBar(
+          bottomNavigationBar: BottomNavBar(
             idx: 2,
           )),
     );
   }
 
-  Widget appointListget(Appointment appoint) {
+  Widget appointListGet(Appointment appoint) {
     return Padding(
       padding: const EdgeInsets.only(top: 10.0, bottom: 10),
       child: AppointmentList(
@@ -196,26 +193,28 @@ class AppointmentList extends StatelessWidget {
           Column(
             children: [
               Text("Date\n$date",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-              SizedBox(height: 10),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 15)),
+              const SizedBox(height: 10),
               // RichText(text: TextSpan(text:"Speciality", children:  <TextSpan>[TextSpan(text: '\n$speciality', style: TextStyle(fontWeight:FontWeight.bold,fontSize:16)),],)),
               Text(
                   speciality.length >= 13
                       ? "Speciality\n${speciality.substring(0, 12)}..."
                       : "Speciality\n$speciality",
-                  style: TextStyle(fontSize: 15)),
+                  style: const TextStyle(fontSize: 15)),
             ],
           ),
           Column(
             children: [
               Text("Time\n$time",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-              SizedBox(height: 10),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 15)),
+              const SizedBox(height: 10),
               Text(
                   location.length >= 15
                       ? "Location\n${location.substring(0, 14)}..."
-                      : "Location\n${location}",
-                  style: TextStyle(fontSize: 15)),
+                      : "Location\n$location",
+                  style: const TextStyle(fontSize: 15)),
             ],
           ),
           Column(
@@ -241,10 +240,10 @@ class AppointmentList extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              contentPadding: EdgeInsets.all(10),
+                              contentPadding: const EdgeInsets.all(10),
                               backgroundColor: Colors.black54,
                               children: [
-                                Text(
+                                const Text(
                                     "Do you want to proceed with your cancellation of appointment?",
                                     style: TextStyle(
                                         color: Colors.white,
@@ -256,16 +255,17 @@ class AppointmentList extends StatelessWidget {
                                           onPressed: () {
                                             Navigator.pop(context);
                                           },
-                                          child: Text("No")),
+                                          child: const Text("No")),
                                       TextButton(
                                           onPressed: () async {
                                             await mongo.deleteAppointment(
                                                 "date", date);
+                                            if (!context.mounted) return;
                                             Navigator
                                                 .restorablePushReplacementNamed(
                                                     context, "appoinments");
                                           },
-                                          child: Text("Yes"))
+                                          child: const Text("Yes"))
                                     ])
                               ]);
                         });
