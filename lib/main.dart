@@ -25,6 +25,17 @@ double w = SizeConfig.W;
 double w_s = SizeConfig.SH;
 double h = SizeConfig.H;
 double h_s = SizeConfig.SV;
+// ThemeData _buildTheme(brightness) {
+//   var baseTheme = ThemeData(
+//       brightness: brightness,
+//       primaryIconTheme: IconThemeData(color: Colors.black),
+//       primarySwatch: Colors.pink,
+//       primaryColor: Colors.black);
+//
+//   return baseTheme.copyWith(
+//     textTheme: GoogleFonts.notoSansGeorgianTextTheme(baseTheme.textTheme),
+//   );
+// }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,16 +43,13 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
   runApp(const AppPage());
 }
 
 class AppPage extends StatelessWidget {
   final Widget? child;
   const AppPage({Key? key, this.child}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<SharedPreferences>(
@@ -50,8 +58,7 @@ class AppPage extends StatelessWidget {
         if (!snapshot.hasData) {
           return Container(
             color: Colors.white,
-          );
-        }
+          );}
         return ThemeManager(
             defaultBrightnessPreference: BrightnessPreference.light,
             data: (Brightness brightness) => ThemeData(

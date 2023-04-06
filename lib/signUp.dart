@@ -13,7 +13,7 @@ import 'package:project/firebase_services.dart';
 import 'package:project/main.dart';
 import 'package:project/otp.dart';
 import 'package:project/strings.dart';
-import 'package:project/user.dart' as userMain;
+import 'package:project/user.dart' as User_main;
 import 'package:project/userProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -46,7 +46,7 @@ class _SignUpPageState extends State<SignUpPage> {
   int index_2 = 0;
   bool obscure_2 = true;
   String countryCode = "+233";
-  String countryAbbreviation = "GH";
+  String countryShortCode = "Gh";
   List<String> pics = [
     "doctor_1.jpg",
     "doctor_2.jpg",
@@ -67,15 +67,15 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
         body: Container(
             decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromRGBO(210, 230, 250, 0.2),
-                  Color.fromRGBO(210, 230, 250, 0.2)
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
+                // gradient: LinearGradient(
+                //   colors: [
+                //     Color.fromRGBO(210, 230, 250, 0.2),
+                //     Color.fromRGBO(210, 230, 250, 0.2)
+                //   ],
+                //   begin: Alignment.topLeft,
+                //   end: Alignment.bottomRight,
+                // ),
+                color: Color.fromRGBO(210, 230, 250, 0.2)),
             padding: const EdgeInsets.all(10),
             child: Visibility(
               visible: !loadingOrNot,
@@ -118,8 +118,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           MainInput(
                             validator: fullNameValidator,
                             controller: fullName,
-                            label:const Text("Full Name"),
-                            prefixIcon:const Icon(Icons.person), obscureText: false,
+                            label: const Text("Full Name"),
+                            prefixIcon: const Icon(Icons.person),
+                            obscureText: false,
                             // suffixIcon:Icon(Icons.person) ,
                           ),
                           const SizedBox(height: 15),
@@ -260,19 +261,19 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Future<void> ayaresapaRegister() async {
-    //print("sup");
+    //  print("sup");
     String completePhoneNumber = "$countryCode${phoneNumber.text}";
     var resultMain =
         await FirebaseServices().getUser(phoneNumber: completePhoneNumber);
 
-    //print(resultMain?.status);
+    //  print(resultMain?.status);
     if (resultMain?.status == QueryStatus.Successful) {
       var userOld = resultMain?.data;
       if (userOld?.number == completePhoneNumber) {
         setState(() {
           loadingOrNot = false;
         });
-        // print("Account already exist");
+        //  print("Account already exist");
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           duration: Duration(seconds: 5),
           content: Text("Account already exist",
@@ -312,7 +313,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   _onVerificationCompleted(PhoneAuthCredential authCredential) async {
     // print("verification completed ${authCredential.smsCode}");
-    //print(" ${authCredential.verificationId}");
+    // print(" ${authCredential.verificationId}");
     User? user = FirebaseAuth.instance.currentUser;
 
     if (authCredential.smsCode != null) {
@@ -328,7 +329,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   _onVerificationFailed(FirebaseAuthException exception) {
-    //print("verification failed ${exception.message}");
+    // print("verification failed ${exception.message}");
     if (exception.code == 'invalid-phone-number') {}
     setState(() {
       loadingOrNot = false;
@@ -342,7 +343,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   _onCodeSent(String verificationId, int? forceResendingToken) {
-   // print(verificationId);
+    //print(verificationId);
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.push(
         context,
@@ -355,7 +356,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 //name: username.text,
                 see: "register",
                 onSuccessCallback: () async {
-                  var user = userMain.User(
+                  var user = User_main.User(
                       number: "$countryCode${phoneNumber.text}",
                       fullname: fullName.text,
                       email: email.text,
@@ -381,7 +382,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void finalRegister() async {
     userProvider = context.read<UserProvider>();
-    //print("Account success");
+    // print("Account success");
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       duration: Duration(seconds: 5),
       content: Text("Successfully registered",
@@ -406,21 +407,21 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Widget selectCountry() {
     return CountryCodePicker(
-        onInit: (val) {
-          //print(val);
-          countryCode = val.toString();
-          // print(countryCode);
-        },
-        initialSelection: countryAbbreviation,
+        // onInit: (val) {
+        //   // print(val);
+        //   countryCode = val.toString();
+        //   // print(countryCode);
+        // },
+        initialSelection: countryShortCode,
         favorite: const [
           "GH",
           "USA",
         ],
         onChanged: (val) {
-          //print(val);
-          countryAbbreviation = val.code!;
-          countryCode = val.toString(); //
-          //print(countryCode);
+          // print(val);
+          countryCode = val.toString();
+          countryShortCode = val.code!;
+          //  print(countryCode);
         });
   }
 }

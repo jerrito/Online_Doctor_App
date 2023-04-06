@@ -34,12 +34,12 @@ class _LoginSignUpState extends State<LoginSignUp> {
   ];
   int passwordSee = 0;
   String countryCode = "+233";
-  String countryAbbreviation = "GH";
+  String countryShortCode = "Gh";
   var firebaseService = FirebaseServices();
   UserProvider? userProvider;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   GlobalKey<FormState> formLogin = GlobalKey();
-  bool loadingOrNot = false;
+  bool loadingornot = false;
   // final TextEditingController number=TextEditingController();
   TextEditingController number = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -73,7 +73,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
               color: Color.fromRGBO(210, 230, 250, 0.2)),
           padding: const EdgeInsets.all(10),
           child: Visibility(
-            visible: !loadingOrNot,
+            visible: !loadingornot,
             replacement: const Center(
               child: SpinKitFadingCube(
                 color: Colors.pink,
@@ -88,8 +88,8 @@ class _LoginSignUpState extends State<LoginSignUp> {
                   Expanded(
                     child: ListView(
                       children: [
-                       const SizedBox(height: 30),
-                       const Center(
+                        const SizedBox(height: 30),
+                        const Center(
                           child: Text(
                             "Sign In",
                             style: TextStyle(
@@ -98,7 +98,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
                                 color: Colors.black),
                           ),
                         ),
-                      const  SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Center(
                           child: CircleAvatar(
                             backgroundColor: Colors.grey,
@@ -114,48 +114,20 @@ class _LoginSignUpState extends State<LoginSignUp> {
                         MainInput(
                           validator: phoneNumberValidator,
                           controller: number,
-                          label:const Text("Number"),
+                          label: const Text("Number"),
                           //hintText: "0244444444",
                           keyboardType: TextInputType.number,
                           prefixIcon: selectCountry(),
                           obscureText: false,
                           // suffixIcon:Icon(Icons.person) ,
                         ),
-                        // SizedBox(height: 20,),
-                        // MainInput(
-                        //   validator: pinValidator,
-                        //   controller: password,
-                        //   obscure: '•',
-                        //   obscureText: obscure_2,
-                        //   label: Text("Password"),
-                        //   prefixIcon: Icon(Icons.password),
-                        //   suffixIcon:IconButton(icon: obscure_2==true
-                        //       ?SvgPicture.asset("./assets/svgs/eye.svg",color:Colors.amber):
-                        //   SvgPicture.asset("./assets/svgs/eye-off.svg",color:Colors.amber),
-                        //       onPressed:(){
-                        //         setState((){
-                        //           obscure_2=false;
-                        //           index_2++;
-                        //           if(index_2%2==0){
-                        //             obscure_2=true;
-                        //           }
-                        //
-                        //         });
-                        //       }),
-                        // ),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.end,
-                        //   children: [
-                        //     TextButton(child:const Text("Forget password"), onPressed: () {  },)],
-                        // ),
                       ],
                     ),
                   ),
                   SecondaryButton(
-                    child:const Text("Login"),
                     foregroundColor: Colors.white,
                     backgroundColor: Colors.pink,
-                    onPressed: loadingOrNot
+                    onPressed: loadingornot
                         ? null
                         : () async {
                             if (formLogin.currentState?.validate() == true) {
@@ -163,6 +135,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
                             }
                           },
                     color: Colors.pink,
+                    child: const Text("Login"),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
@@ -212,16 +185,15 @@ class _LoginSignUpState extends State<LoginSignUp> {
   Future<void> loginWithPhoneNumber() async {
     //print("start");
     setState(() {
-      loadingOrNot = true;
+      loadingornot = true;
     });
     String completeNumber = "$countryCode${number.text}";
-
     var result = await userProvider?.getUser(phoneNumber: completeNumber);
-    //print(completeNumber);
+    // print("start_2");
 
     if (result?.status == QueryStatus.Successful) {
       var user = result?.data;
-      //print("this is ${user?.number}");
+      // print("this is ${user?.number}");
       if (user?.number == completeNumber) {
         await phoneSignIn(phoneNumber: completeNumber);
 
@@ -243,7 +215,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
           backgroundColor: Color.fromRGBO(20, 100, 150, 1),
         ));
         setState(() {
-          loadingOrNot = false;
+          loadingornot = false;
         });
       }
 
@@ -288,7 +260,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
 
   _onVerificationCompleted(PhoneAuthCredential authCredential) async {
     //print("verification completed ${authCredential.smsCode}");
-    //print(" ${authCredential.verificationId}");
+    // print(" ${authCredential.verificationId}");
     User? user = FirebaseAuth.instance.currentUser;
 
     if (authCredential.smsCode != null) {
@@ -308,10 +280,10 @@ class _LoginSignUpState extends State<LoginSignUp> {
   }
 
   _onVerificationFailed(FirebaseAuthException exception) {
-   // print("verification failed ${exception.message}");
+    //  print("verification failed ${exception.message}");
     if (exception.code == 'invalid-phone-number') {
       setState(() {
-        loadingOrNot = false;
+        loadingornot = false;
       });
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         duration: Duration(seconds: 5),
@@ -321,7 +293,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
       ));
     }
     setState(() {
-      loadingOrNot = false;
+      loadingornot = false;
     });
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       duration: Duration(seconds: 5),
@@ -344,7 +316,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
 
     Future.delayed(const Duration(seconds: 2), () {
       setState(() {
-        loadingOrNot = false;
+        loadingornot = false;
       });
       Navigator.push(
         context,
@@ -365,7 +337,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
                       content: Text(
                           "Successfully logged in ${result_2?.data?.fullname}",
                           style: const TextStyle(color: Colors.white)),
-                      backgroundColor:const Color.fromRGBO(20, 100, 150, 1),
+                      backgroundColor: const Color.fromRGBO(20, 100, 150, 1),
                     ));
                     Navigator.pushNamed(context, 'homepage');
                   }
@@ -389,18 +361,19 @@ class _LoginSignUpState extends State<LoginSignUp> {
         // onInit: (val) {
         //   // print(val);
         //   countryCode = val.toString();
+        //   countryShortCode = val!.code!;
         //   // print(countryCode);
         // },
-        initialSelection: countryAbbreviation,
+        initialSelection: countryShortCode,
         favorite: const [
           "GH",
           "USA",
         ],
         onChanged: (val) {
-         // print(val.code);
+          // print(val);
           countryCode = val.toString();
-          countryAbbreviation = val.code!;
-          //print(countryCode);
+          countryShortCode = val.code!;
+          // print(countryCode);
         });
   }
 }
