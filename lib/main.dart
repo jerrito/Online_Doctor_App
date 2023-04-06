@@ -25,6 +25,17 @@ double w = SizeConfig.W;
 double w_s = SizeConfig.SH;
 double h = SizeConfig.H;
 double h_s = SizeConfig.SV;
+ThemeData _buildTheme(brightness) {
+  var baseTheme = ThemeData(
+      brightness: brightness,
+      primaryIconTheme: IconThemeData(color: Colors.black),
+      primarySwatch: Colors.pink,
+      primaryColor: Colors.black);
+
+  return baseTheme.copyWith(
+    textTheme: GoogleFonts.notoSansGeorgianTextTheme(baseTheme.textTheme),
+  );
+}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +46,7 @@ Future<void> main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  runApp(const AppPage());
+  runApp(AppPage());
 }
 
 class AppPage extends StatelessWidget {
@@ -55,7 +66,7 @@ class AppPage extends StatelessWidget {
         return ThemeManager(
             defaultBrightnessPreference: BrightnessPreference.light,
             data: (Brightness brightness) => ThemeData(
-                  iconTheme: const IconThemeData(color: Colors.black),
+                  iconTheme: IconThemeData(color: Colors.black),
                   primaryColor: Colors.black,
                   primarySwatch: Colors.pink,
                   textTheme: GoogleFonts.notoSansGeorgianTextTheme(
@@ -156,19 +167,19 @@ class AppPage extends StatelessWidget {
                     theme: theme,
                     initialRoute: "splash",
                     routes: {
-                      "homeScreen": (context) => const HomeScreen(),
-                      "login": (context) => const LoginSignUp(),
-                      "splash": (context) => const Splashscreen(),
-                      "signup": (context) => const SignUpPage(),
-                      "homepage": (context) => const HomePage(),
-                      "doctorSearch": (context) => const DoctorSearch(
+                      "homeScreen": (context) => HomeScreen(),
+                      "login": (context) => LoginSignUp(),
+                      "splash": (context) => Splashscreen(),
+                      "signup": (context) => Signuppage(),
+                      "homepage": (context) => HomePage(),
+                      "doctorSearch": (context) => DoctorSearch(
                             cardvalue: "Family physician",
                           ),
                       "profile": (context) => Profile(
                             profileUpdate:
                                 ProfileUpdate(imagePath: "", check: "see"),
                           ),
-                      "doctorsAvailable": (context) => const DoctorsAvailable(),
+                      "doctorsAvailable": (context) => DoctorsAvailable(),
                       //"doctorAppointment": (context)=>DoctorAppointment(),
                       "appoinments": (context) => Appointments(
                             date: DateTime.now(),
@@ -200,24 +211,24 @@ class _HomeScreenState extends State<HomeScreen> {
     SizeConfig().init(context);
     return Scaffold(
       body: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: Color.fromRGBO(210, 230, 250, 0.2),
           ),
-          padding: const EdgeInsets.all(10),
+          padding: EdgeInsets.all(10),
 
           // margin: const EdgeInsets.only(left: 150),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            const SizedBox(
+            SizedBox(
               height: 30,
             ),
             Expanded(
               child: ListView(children: [
-                const Center(
+                Center(
                     child: Text(
                   "ONLINE HEALTH CARE",
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 )),
-                const SizedBox(
+                SizedBox(
                   height: 50,
                 ),
                 Center(
@@ -231,7 +242,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ).image,
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 15,
                 ),
                 const Center(
@@ -242,12 +253,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 )),
-                const Center(
+                Center(
                     child: Text(
                   "Welcome To Quality Online HealthCare ",
                   style: TextStyle(fontSize: 16, color: Colors.black),
                 )),
-                const Center(
+                Center(
                     child: Text(
                   "Here your health is our priority",
                   style: TextStyle(fontSize: 16, color: Colors.black),
@@ -264,7 +275,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: const Text("Login",
                   style: TextStyle(fontWeight: FontWeight.bold)),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             SecondaryButton(
               backgroundColor: Colors.white,
               foregroundColor: Colors.pink,
@@ -275,7 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: const Text("Signup",
                   style: TextStyle(fontWeight: FontWeight.bold)),
             ),
-            const SizedBox(height: 20)
+            SizedBox(height: 20)
           ])),
     );
   }
