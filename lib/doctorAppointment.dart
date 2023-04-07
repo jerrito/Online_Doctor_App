@@ -34,7 +34,7 @@ class _DoctorAppointmentState extends State<DoctorAppointment> {
   GlobalKey<FormState> dropdownKey = GlobalKey<FormState>();
   DayPartController dayPartController = DayPartController();
   DateTime date = DateTime.now().add(const Duration(hours: 24));
-  late var formattedDate;
+  late dynamic formattedDate;
   String dateGet = "";
   bool dateConfirm = false;
   bool timeSlot = false;
@@ -42,7 +42,8 @@ class _DoctorAppointmentState extends State<DoctorAppointment> {
   bool loading = false;
   @override
   void initState() {
-    print(widget.name);
+    super.initState();
+    //print(widget.name);
     formattedDate = DateFormat('d-MMM-yy').format(date);
     initializeDateFormatting();
   }
@@ -53,13 +54,13 @@ class _DoctorAppointmentState extends State<DoctorAppointment> {
     return SafeArea(
       child: Scaffold(
         body: loading
-            ? Center(
+            ? const Center(
                 child: SpinKitFadingCube(
                 color: Colors.pink,
                 size: 50.0,
               ))
             : Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -67,27 +68,24 @@ class _DoctorAppointmentState extends State<DoctorAppointment> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             IconButton(
-                                icon: Icon(Icons.arrow_back_ios_new_outlined),
+                                icon: const Icon(
+                                    Icons.arrow_back_ios_new_outlined),
                                 onPressed: () {
                                   Navigator.pop(context);
                                 }),
-                            Text("Appointment",
+                            const Text("Appointment",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 18)),
-                            Text("")
+                            const Text("")
                           ]),
                       SizedBox(height: h_s * 6.25),
                       Expanded(
                         child: ListView(
                           children: [
                             SecondaryButton(
-                                child: Text("Select Date",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16)),
                                 onPressed: () async {
-                                  print("datepick");
-                                  print(date.weekday);
+                                  //print("datepick");
+                                  // print(date.weekday);
                                   await showDatePicker(
                                     context: context,
                                     selectableDayPredicate:
@@ -122,11 +120,15 @@ class _DoctorAppointmentState extends State<DoctorAppointment> {
                                   });
                                 },
                                 color: Colors.pink,
-                                backgroundColor: Colors.pink),
+                                backgroundColor: Colors.pink,
+                                child: const Text("Select Date",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16))),
                             SizedBox(height: h_s * 6.25),
-                            Text("$dateGet"),
+                            Text(dateGet),
                             SizedBox(height: h_s * 2.5),
-                            Text("Slots"),
+                            // Text("Slots"),
                             Visibility(
                               visible: timeSlot,
                               child: TimesSlotGridViewFromInterval(
@@ -160,17 +162,18 @@ class _DoctorAppointmentState extends State<DoctorAppointment> {
                                     date: dateGet,
                                     time:
                                         "${selectTime.hour.toString()}:${selectTime.minute.toString()}0",
-                                    doctor: "${widget.name}",
-                                    speciality: "${widget.speciality}",
-                                    location: "${widget.location}",
-                                    number: "${widget.number}");
+                                    doctor: widget.name,
+                                    speciality: widget.speciality,
+                                    location: widget.location,
+                                    number: widget.number);
                                 await mongo.insertAppointmentDetail(
                                     appoint: appointment);
                                 setState(() {
                                   loading = false;
                                 });
+                                if (!context.mounted) return;
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                    const SnackBar(
                                         content: Text(
                                             "Successfully booked appointment")));
                                 Navigator.restorablePushReplacementNamed(
@@ -184,9 +187,9 @@ class _DoctorAppointmentState extends State<DoctorAppointment> {
                               },
                         color: Colors.amberAccent,
                         backgroundColor: Colors.amberAccent,
-                        child: Text("Confirm Appointment"),
+                        child: const Text("Confirm Appointment"),
                       ),
-                      SizedBox(height: 10)
+                      const SizedBox(height: 10)
                     ]),
               ),
       ),

@@ -317,6 +317,7 @@ class _HomePageState extends State<HomePage> {
     return DoctorInfo(
       name: "${user.fullname}",
       speciality: "${user.speciality}",
+      email: "${user.email}",
       location: "${user.location}",
       picture: "${user.image}",
       experience: '${user.experience}',
@@ -349,6 +350,7 @@ class _HomePageState extends State<HomePage> {
       patients: '${user.patients}',
       rating: user.ratings!,
       number: '${user.number}',
+      email: "${user.email}",
     );
   }
 
@@ -508,10 +510,12 @@ class DoctorSearching extends SearchDelegate<DoctorSearch> {
 
   Widget DocSeek(Appointment user) {
     return DoctorSearcher(
-        name: "${user.fullname}",
-        speciality: "${user.speciality}",
-        location: "${user.location}",
-        number: '${user.number}',
-        image: '${user.image}');
+      name: "${user.fullname}",
+      speciality: "${user.speciality}",
+      location: "${user.location}",
+      number: '${user.number}',
+      image: '${user.image}',
+      email: "${user.email}",
+    );
   }
 }

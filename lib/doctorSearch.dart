@@ -200,7 +200,7 @@ class _DoctorSearchState extends State<DoctorSearch> {
       speciality: '${user.speciality}',
       picture: '${user.image}',
       location: '${user.location}',
-      number: '${user.number}',
+      number: '${user.number}', email: "${user.email}",
     );
   }
 }

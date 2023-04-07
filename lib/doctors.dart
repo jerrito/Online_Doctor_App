@@ -229,7 +229,7 @@ class _DoctorsAvailableState extends State<DoctorsAvailable> {
       experience: "${user.experience}",
       patients: "${user.patients}",
       location: '${user.location}',
-      number: '${user.number}',
+      number: '${user.number}', email:"${user.email}",
     );
   }
 // List<Widget> items_2=[

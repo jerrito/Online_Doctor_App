@@ -8,6 +8,7 @@ import 'package:project/main.dart';
 class DoctorInfo extends StatelessWidget {
   final String name;
   final String speciality;
+  final String email;
   final String location;
   final String picture;
   final String number;
@@ -24,6 +25,7 @@ class DoctorInfo extends StatelessWidget {
       required this.location,
       required this.picture,
       this.onTap,
+      required this.email,
       this.onDoubleTap,
       this.onLongPress,
       required this.experience,
@@ -47,6 +49,7 @@ class DoctorInfo extends StatelessWidget {
                     experience: experience,
                     follow: '1.53K',
                     location: location,
+                    email: email,
                     number: number)));
       },
       onDoubleTap: onDoubleTap,
@@ -169,6 +172,7 @@ class DoctorPick extends StatelessWidget {
   final double rating;
   final String picture;
   final String location;
+  final String email;
   final String number;
   const DoctorPick(
       {Key? key,
@@ -176,6 +180,7 @@ class DoctorPick extends StatelessWidget {
       required this.speciality,
       required this.picture,
       required this.experience,
+      required this.email,
       required this.patients,
       required this.rating,
       this.onTap,
@@ -201,6 +206,7 @@ class DoctorPick extends StatelessWidget {
                       follow: '1.53K',
                       location: location,
                       number: number,
+                      email: email,
                     )));
       },
       onDoubleTap: onDoubleTap,
@@ -296,6 +302,7 @@ class DoctorsAvailableOnline extends StatelessWidget {
   final String experience;
   final String patients;
   final String number;
+  final String email;
   final String picture;
   final String location;
   const DoctorsAvailableOnline(
@@ -304,6 +311,7 @@ class DoctorsAvailableOnline extends StatelessWidget {
       required this.speciality,
       required this.picture,
       required this.experience,
+      required this.email,
       required this.patients,
       this.onTap,
       this.onDoubleTap,
@@ -328,6 +336,7 @@ class DoctorsAvailableOnline extends StatelessWidget {
                       follow: '1.53K',
                       location: location,
                       number: number,
+                      email: email,
                     )));
       },
       onDoubleTap: onDoubleTap,
@@ -407,6 +416,7 @@ class DoctorArea extends StatelessWidget {
   final String name;
   final String speciality;
   final String number;
+  final String email;
   final void Function()? onTap;
   final void Function()? onDoubleTap;
   final void Function()? onLongPress;
@@ -421,7 +431,7 @@ class DoctorArea extends StatelessWidget {
       this.onDoubleTap,
       this.onLongPress,
       required this.location,
-      required this.number})
+      required this.number, required this.email})
       : super(key: key);
 
   @override
@@ -439,7 +449,7 @@ class DoctorArea extends StatelessWidget {
                       experience: "3 Years",
                       follow: '1.53K',
                       location: location,
-                      number: number,
+                      number: number, email: email,
                     )));
       },
       onDoubleTap: onDoubleTap,
@@ -479,6 +489,7 @@ class DoctorSearcher extends StatelessWidget {
   final String name;
   final String speciality;
   final String number;
+  final String email;
   final String image;
   final void Function()? onTap;
   final void Function()? onDoubleTap;
@@ -493,6 +504,7 @@ class DoctorSearcher extends StatelessWidget {
       this.onDoubleTap,
       this.onLongPress,
       required this.location,
+      required this.email,
       required this.number,
       required this.image})
       : super(key: key);
@@ -512,7 +524,7 @@ class DoctorSearcher extends StatelessWidget {
                       experience: "3 Years",
                       follow: '1.53K',
                       location: location,
-                      number: number,
+                      number: number, email: email,
                     )));
       },
       onDoubleTap: onDoubleTap,

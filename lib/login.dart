@@ -103,11 +103,11 @@ class _LoginSignUpState extends State<LoginSignUp> {
                           child: CircleAvatar(
                             backgroundColor: Colors.grey,
                             radius: h_s * 15,
-                            backgroundImage: Image.asset(
-                              "./assets/images/$pic",
-                              height: h / 3,
-                              width: w,
-                            ).image,
+                            backgroundImage: Image.asset("./assets/images/$pic",
+                                    height: h / 3,
+                                    width: w,
+                                    fit: BoxFit.scaleDown)
+                                .image,
                           ),
                         ),
                         const SizedBox(height: 15),
@@ -208,6 +208,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
 
         return;
       } else {
+        if (!context.mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           duration: Duration(seconds: 5),
           content: Text("Number is not registered",
@@ -230,6 +231,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
 
       return;
     } else if (result?.status == QueryStatus.Failed) {
+      if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         duration: Duration(seconds: 5),
         content:
@@ -332,6 +334,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
                   var result_2 = await userProvider?.getUser(
                       phoneNumber: "$countryCode${number.text}");
                   if (result_2?.status == QueryStatus.Successful) {
+                    if (!context.mounted) return;
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       duration: const Duration(seconds: 5),
                       content: Text(

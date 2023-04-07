@@ -7,6 +7,7 @@ import 'package:project/firebase_services.dart';
 class Appointment implements Serializable {
   String? date;
   String? fullname;
+  String? email;
   String? image;
   int? experience;
   String? time;
@@ -19,6 +20,7 @@ class Appointment implements Serializable {
   Appointment(
       {this.date,
       this.image,
+        this.email,
       this.experience,
       this.time,
       this.doctor,
@@ -32,6 +34,7 @@ class Appointment implements Serializable {
   factory Appointment.fromJson(Map? json) => Appointment(
       date: json?["date"],
       image: json?["image"],
+      email: json?["email"],
       experience: json?["experience"],
       fullname: json?["fullname"],
       patients: json?["patients"],
@@ -46,6 +49,7 @@ class Appointment implements Serializable {
     return {
       "date": date,
       "fullname": fullname,
+      "email": email,
       "experience": experience,
       "image": image,
       "patients": patients,
