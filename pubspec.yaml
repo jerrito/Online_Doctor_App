@@ -68,6 +68,8 @@ dependencies:
   country_code_picker: ^3.0.0
   flutter_localization: ^0.1.10
   double_back_to_close: ^2.0.0
+  agora_rtc_engine: ^5.0.0
+  permission_handler: ^10.2.0
 
 
 
@@ -97,6 +99,7 @@ flutter:
   assets:
     - assets/images/
     - assets/svgs/
+    - assets/medical_icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

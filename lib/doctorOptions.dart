@@ -5,7 +5,10 @@ import 'package:project/MainButton.dart';
 import 'package:project/Size_of_screen.dart';
 import 'package:project/doctorAppointment.dart';
 import 'package:project/main.dart';
-import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
+import 'package:project/role.dart';
+import 'package:url_launcher/url_launcher.dart' as urlLauncher;
+
+
 
 class DoctorOptions extends StatefulWidget {
   final String name;
@@ -79,7 +82,7 @@ class _DoctorOptionsState extends State<DoctorOptions> {
                               icon:
                                   const Icon(Icons.phone, color: Colors.white),
                               onPressed: () {
-                                UrlLauncher.launchUrl(
+                                urlLauncher.launchUrl(
                                     Uri(scheme: "tel", host: widget.number));
                               },
                               backgroundColor: Colors.lightGreen,
@@ -91,7 +94,17 @@ class _DoctorOptionsState extends State<DoctorOptions> {
                               label: "Video call",
                               icon: const Icon(Icons.video_call_outlined,
                                   color: Colors.white),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                 context,
+                                  MaterialPageRoute(builder:
+                                  ( BuildContext context)=>
+                                      const VideoCallStartPage(
+
+                                  )
+                                  )
+                                );
+                              },
                               backgroundColor: Colors.purple,
                               color: Colors.purple)),
                       SizedBox(
@@ -103,7 +116,7 @@ class _DoctorOptionsState extends State<DoctorOptions> {
                                   color: Colors.white),
                               onPressed: () {
                                 //print(widget.email);
-                                UrlLauncher.launchUrl(
+                                urlLauncher.launchUrl(
                                     Uri(scheme: "mailto", path: widget.email));
                               },
                               backgroundColor: Colors.orange,

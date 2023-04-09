@@ -125,7 +125,7 @@ class DoctorInfo extends StatelessWidget {
 }
 
 class DoctorCategories extends StatelessWidget {
-  final IconData icon;
+  final Widget icon;
   final String role;
   final void Function()? onTap;
   const DoctorCategories(
@@ -151,7 +151,7 @@ class DoctorCategories extends StatelessWidget {
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(10)),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Icon(icon, color: Colors.pink),
+            icon,
             const SizedBox(height: 10),
             Text(role.length >= 20 ? "${role.substring(0, 17) + "..."}" : role,
                 style:
@@ -431,7 +431,8 @@ class DoctorArea extends StatelessWidget {
       this.onDoubleTap,
       this.onLongPress,
       required this.location,
-      required this.number, required this.email})
+      required this.number,
+      required this.email})
       : super(key: key);
 
   @override
@@ -449,7 +450,8 @@ class DoctorArea extends StatelessWidget {
                       experience: "3 Years",
                       follow: '1.53K',
                       location: location,
-                      number: number, email: email,
+                      number: number,
+                      email: email,
                     )));
       },
       onDoubleTap: onDoubleTap,
@@ -524,7 +526,8 @@ class DoctorSearcher extends StatelessWidget {
                       experience: "3 Years",
                       follow: '1.53K',
                       location: location,
-                      number: number, email: email,
+                      number: number,
+                      email: email,
                     )));
       },
       onDoubleTap: onDoubleTap,

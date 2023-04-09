@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project/MainButton.dart';
 import 'package:project/Size_of_screen.dart';
 import 'package:project/bottomNavigation.dart';
@@ -174,43 +175,95 @@ class _HomePageState extends State<HomePage> {
                       return Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             DoctorCategories(
-                                icon: Icons.medication_liquid,
+                                icon: SvgPicture.asset(
+                                    width: 24,
+                                    height: 24,
+                                    color: Colors.pink,
+                                    "./assets/medical_icons/head-side-virus.svg"),
                                 role: "Neurologist"),
+                            const DoctorCategories(
+                                icon: Icon(
+                                  Icons.mood_outlined,
+                                  color: Colors.pink,
+                                ),
+                                role: "Dentist"),
                             DoctorCategories(
-                                icon: Icons.medication_liquid, role: "Dentist"),
-                            DoctorCategories(
-                                icon: Icons.medication_liquid,
+                                icon: SvgPicture.asset(
+                                    width: 24,
+                                    height: 24,
+                                    color: Colors.pink,
+                                    "./assets/medical_icons/baby.svg"),
                                 role: "Obstetrician"),
                             DoctorCategories(
-                                icon: Icons.medication_liquid,
+                                icon: SvgPicture.asset(
+                                    width: 24,
+                                    height: 24,
+                                    color: Colors.pink,
+                                    "./assets/medical_icons/capsules.svg"),
                                 role: "Gynecologist"),
                             DoctorCategories(
-                                icon: Icons.medication_liquid,
+                                icon: SvgPicture.asset(
+                                    width: 24,
+                                    height: 24,
+                                    color: Colors.pink,
+                                    "./assets/medical_icons/lungs-virus.svg"),
                                 role: "Radiologist"),
                             DoctorCategories(
-                                icon: Icons.medication_liquid,
+                                icon: SvgPicture.asset(
+                                    width: 24,
+                                    height: 24,
+                                    color:Colors.pink,
+                                    "./assets/medical_icons/capsules.svg"),
                                 role: "Anesthesiologist"),
                             DoctorCategories(
-                                icon: Icons.medication_liquid,
+                                icon: SvgPicture.asset(
+                                    width: 24,
+                                    height: 24,
+                                    color: Colors.pink,
+                                    "./assets/medical_icons/hand-holding-medical.svg"),
                                 role: "Family physician"),
                             DoctorCategories(
-                                icon: Icons.medication_liquid,
+                                icon: SvgPicture.asset(
+                                    width: 24,
+                                    height: 24,
+                                    color: Colors.pink,
+                                    "./assets/medical_icons/lungs-virus.svg"),
                                 role: "Internist"),
                             DoctorCategories(
-                                icon: Icons.medication_liquid,
+                                icon: SvgPicture.asset(
+                                    width: 24,
+                                    height: 24,
+                                    color: Colors.pink,
+                                    "./assets/medical_icons/allergies.svg"),
                                 role: "Dermatologist"),
                             DoctorCategories(
-                                icon: Icons.medical_information_rounded,
+                                icon: SvgPicture.asset(
+                                    width: 24,
+                                    height: 24,
+                                    color: Colors.pink,
+                                    "./assets/medical_icons/baby.svg"),
                                 role: "Pediatrician"),
                             DoctorCategories(
-                                icon: Icons.medication_liquid,
+                                icon: SvgPicture.asset(
+                                    width: 24,
+                                    height: 24,
+                                    color: Colors.pink,
+                                    "./assets/medical_icons/dna.svg"),
                                 role: "E.R doctor"),
                             DoctorCategories(
-                                icon: Icons.medication, role: "Psychiatrist"),
+                                icon: SvgPicture.asset(
+                                    width: 24,
+                                    height: 24,
+                                    color: Colors.pink,
+                                    "./assets/medical_icons/head-side-virus.svg"),
+                                role: "Psychiatrist"),
                             DoctorCategories(
-                                icon: Icons.medication,
+                                icon: SvgPicture.asset(
+                                  "./assets/svgs/eye.svg",
+                                  color: Colors.pink,
+                                ),
                                 role: "Ophthalmologist"),
                           ]);
                     },
@@ -408,7 +461,7 @@ class DoctorSearching extends SearchDelegate<DoctorSearch> {
             return ListView.builder(
                 itemCount: doctors,
                 itemBuilder: (context, index) {
-                  return DocSeek(Appointment.fromJson(snapshot.data[index]));
+                  return docSeek(Appointment.fromJson(snapshot.data[index]));
                 });
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -463,7 +516,7 @@ class DoctorSearching extends SearchDelegate<DoctorSearch> {
             return ListView.builder(
                 itemCount: doctors,
                 itemBuilder: (context, index) {
-                  return DocSeek(Appointment.fromJson(snapshot.data[index]));
+                  return docSeek(Appointment.fromJson(snapshot.data[index]));
                 });
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -508,7 +561,7 @@ class DoctorSearching extends SearchDelegate<DoctorSearch> {
     throw UnimplementedError();
   }
 
-  Widget DocSeek(Appointment user) {
+  Widget docSeek(Appointment user) {
     return DoctorSearcher(
       name: "${user.fullname}",
       speciality: "${user.speciality}",
